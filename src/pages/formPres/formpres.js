@@ -1543,7 +1543,7 @@ const CompFormpres = () => {
             <input
               className="form-check-input me-2"
               type="checkbox"
-              defaultValue={tel2}
+              value={tel2}
               id="flexCheckDefault"
               disabled={dehabil}
               onChange={(e) => changeTeloEmail(e, 2)}
