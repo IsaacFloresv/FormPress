@@ -300,7 +300,7 @@ const CompFormpres = () => {
   const [ fhHValidC, setfhHValidC ] = useState("");
   const [ fgValidC, setfgValidC ] = useState("");
   const [ dhClValid, setdhClValid ] = useState("");
-  const [ RespClValid, setRespClValid ] = useState("");
+  const [ respClValid, setRespClValid ] = useState("");
   //#endregion UseState de Imputs
   //#endregion
 
@@ -1869,7 +1869,7 @@ const CompFormpres = () => {
             </label>
             <textarea
               name="respuesta"
-              className={`form-control ${dhClValid}`}
+              className={`form-control ${respClValid}`}
               id="inputResp"
               value={resp}
               rows="10"
