@@ -4,6 +4,11 @@ import './signin.css';
 import Cookies from "universal-cookie";
 
 
+import { useNavigate } from "react-router-dom";
+
+
+
+
 
 
 
@@ -15,6 +20,8 @@ const cookies = new Cookies()
 function Login() {
   const [ user_id, setUser_id ] = useState('')
   const [ user_pass, setUser_pass ] = useState('')
+
+  const navigate = useNavigate();
 
   const CargarDatos = (e) => {
     if (e.target != null) {
@@ -52,12 +59,12 @@ function Login() {
        try{
         let response = await axios.request(reqOptions)
           if(response.statusText != "Forbidden" ){
-            //console.log(response)
             const {resp, Agente} = response.data
             cookies.set('token', resp)
             cookies.set('info', Agente)
             console.log(resp, Agente)
-            window.location = '/formpres'
+            navigate('/formpres')
+            //window.location = '/formpres'
           }else{
             alert('El usuario y/o la contraseña no son correctos')
           }
@@ -75,7 +82,7 @@ function Login() {
       
       <main className="form-signin">
         <div className="shadow-lg p-2 mb-5 mt-2 bg-body rounded background: transparent">
-        <form onSubmit={LoginCheck} >
+        <form onSubmit={LoginCheck}>
           <img className="mb-4 mt-4 rounded-circle" src="logo.png" alt="Reportes Listos" width="150" height="150" />
 
           <div className="form-floating">

@@ -26,10 +26,12 @@
     "react-router-dom": "^6.8.2",
     "react-scripts": "^5.0.1",
     "react-select": "^5.7.0",
+    "request": "^2.88.2",
     "sweetalert2": "^11.7.3",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^3.1.1"
   },
+  "type": "module",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build"
@@ -47,11 +49,13 @@
     ]
   },
   "devDependencies": {
-    "node-polyfill-webpack-plugin": "^2.0.1"
+    "envify": "^4.1.0",
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "terser": "^5.16.5",
+    "uglifyify": "^5.0.2"
   },
   "browser": {
     "crypto": false,
     "stream": false
   }
 }
-

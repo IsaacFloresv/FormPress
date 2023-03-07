@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Select from "react-select";
 import Cookies from 'universal-cookie'
@@ -11,9 +11,14 @@ const URI = "https://fwmback-production.up.railway.app/";
 
 const CompFormpres = () => {
   //#region UseStates
+
   const CerrarSession = () => {
-    cookies.remove('info')
-    cookies.remove('token') 
+    const respuesta = confirm("¿Desea salir?")
+    console.log(respuesta)
+    if (respuesta == true) {
+      cookies.remove('info')
+      cookies.remove('token')
+    }
   }
   //Obtener el numero del ultimo
   const NextRegister = async (v) => {
@@ -27,6 +32,8 @@ const CompFormpres = () => {
       headers: headersList
     });
 
+
+    setAgente(cookies.get('info'))
     let data = await response.text();
     const rmay = ++data
     const may = rmay
@@ -35,13 +42,12 @@ const CompFormpres = () => {
     if (v === 2) { setidNR(data) }
     setFchareg(fecha)
     setnRegistro(may)
-
-    console.log(idNR, nRegistro, fchareg)
   };
 
   const EnviarDatos = async () => {
     NextRegister(2)
     alert("Se procede a guardar los datos");
+    var nagente = cookies.get('info')
     let headersList = {
       Accept: "*/*",
       "User-Agent": "Thunder Client (https://www.thunderclient.com)",
@@ -51,7 +57,7 @@ const CompFormpres = () => {
     let bodyContent = JSON.stringify({
       id_report: nRegistro,
       fchareg: fchareg,
-      id_agente: agente,
+      id_agente: nagente,
       fchacomplet: fchacomplet,
       status: eRegistro,
       origen_r: oRegistro,
@@ -84,7 +90,6 @@ const CompFormpres = () => {
       id_audio: idaudio,
       id_correo: idcorreo,
     });
-    console.log(bodyContent);
     let response = await fetch(
       "https://fwmback-production.up.railway.app/asepress",
       {
@@ -95,7 +100,6 @@ const CompFormpres = () => {
     );
 
     let data = await response.text();
-    console.log(data);
     alert("Registro Creado Correctamente....");
   };
 
@@ -1903,8 +1907,8 @@ const CompFormpres = () => {
               to={"/"}
               id="btnenviar"
               type="buttom"
-              className="p-3 m-3 btn btn-danger fw-bolder float-start" 
-              onClick={CerrarSession()}>
+              className="p-3 m-3 btn btn-danger fw-bolder float-start"
+              onClick={() => CerrarSession()}>
               Salir
             </Link>
           </div>

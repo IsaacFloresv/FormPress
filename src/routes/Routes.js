@@ -4,24 +4,23 @@ import Login from '../pages/login/login.js'
 import CompFormPrese from '../pages/formPres/CompoForm.js'
 import Dashboard from '../pages/dashboard/dashboard.js'
 
-import Cookies from 'universal-cookie'
 
+import { ProtectedRoute } from "../componentes/ProtectedRouter.jsx";
+
+import Cookies from 'universal-cookie'
 const cookies = new Cookies()
+var user = cookies.get('token')
 
 function Router() {
-const verify = () =>{
-    if(cookies.get('token')){
-
-    }
-}
-
     return (
         <BrowserRouter>
             <Routes>
-                <Route exact path="/" element={<Login />} />
-                <Route exact path="/formpres" element={<CompFormPrese />}/>
-                <Route exact path="/dashboard" element={<Dashboard />}/>
-                <Route exact path="*" element={<Navigate to="/" />}/>
+                <Route replace path="/" element={<Login />} />
+                <Route element={<ProtectedRoute user={user} />} >
+                    <Route replace path="/formpres" element={<CompFormPrese />} />
+                    <Route replace path="/dashboard" element={<Dashboard />} />
+                    <Route replace path="*" element={<Navigate replace to="/" />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     )

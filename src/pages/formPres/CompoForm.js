@@ -1,6 +1,6 @@
 
 import CompFormPres from './formpres.js';
-import CompHead from './head';
+import CompHead from './head.js';
 import Dashboard from '../dashboard/dashboard.js';
 
 function CompFormPrese() {
