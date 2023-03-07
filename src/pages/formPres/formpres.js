@@ -48,6 +48,8 @@ const CompFormpres = () => {
     NextRegister(2)
     alert("Se procede a guardar los datos");
     var nagente = cookies.get('info')
+    
+    console.log(rsocial, nfantasy)
     let headersList = {
       Accept: "*/*",
       "User-Agent": "Thunder Client (https://www.thunderclient.com)",
@@ -90,6 +92,7 @@ const CompFormpres = () => {
       id_audio: idaudio,
       id_correo: idcorreo,
     });
+    console.log(bodyContent)
     let response = await fetch(
       "https://fwmback-production.up.railway.app/asepress",
       {
@@ -100,6 +103,7 @@ const CompFormpres = () => {
     );
 
     let data = await response.text();
+    console.log(data)
     alert("Registro Creado Correctamente....");
   };
 
@@ -130,8 +134,6 @@ const CompFormpres = () => {
         descH !== "" &&
         resp !== ""
       ) {
-        setRsocial(nombC);
-        setNfantasy(apell1C)
         EnviarDatos();
       } else {
         alert("faltan datos");
@@ -571,7 +573,7 @@ const CompFormpres = () => {
     const Ub = ub;
     let resp = "";
 
-    console.log(val.indexOf("-"));
+    console.log(val.indexOf("-"), val, ub);
     if (Ub === 1) {
       setTel(val);
     } else if (Ub === 2) {
@@ -585,8 +587,9 @@ const CompFormpres = () => {
 
     if (resp) {
       if (Ub === 1) {
-        setdeshabProv(false);
+        //setdeshabProv(false);
         getProvs();
+        getBienes();
         settlClValid("is-valid");
         let tele = val;
         tele =
@@ -791,11 +794,9 @@ const CompFormpres = () => {
       const valor = val;
       const Ced = ced === 2 ? ndiC : ced;
       setnombC(valor);
-      console.log(val, ced);
       if (valor.toString().length >= 1) {
         if (Ced.toString().length == 10) {
           const resp = validarTextEsp(valor);
-          console.log(resp, "en CJ 10");
           if (resp) {
             setnClValidC("is-valid");
           } else {
@@ -810,8 +811,8 @@ const CompFormpres = () => {
 
   const ValidarinputApp1C = (val) => {
     const valor = val;
-    setapell1C(valor);
-    console.log(valor);
+    setapell1C(valor);    
+    setNfantasy(apell1C);
     if (lblapell1C != "Nombre de Fantasía (Opcional)") {
       if (val.toString().length >= 1) {
         const resp = validarText(val);
@@ -845,6 +846,7 @@ const CompFormpres = () => {
     const valor = val;
     setdescH(valor);
 
+    setNfantasy(apell1C);
     if (val.toString().length >= 0) {
       setdhClValid("is-valid");
     } else {
@@ -855,6 +857,8 @@ const CompFormpres = () => {
   const ValidarinputResp = (val) => {
     const valor = val;
     setResp(valor);
+    
+    setNfantasy(apell1C);
 
     if (val.toString().length >= 0) {
       setRespClValid("is-valid");
@@ -1093,7 +1097,7 @@ const CompFormpres = () => {
     if (v.label != null) {
       const val = v.label;
       setubBie(val);
-      setidBie(v.value);
+      setidBie(v.value);   
     }
   };
   //#endregion
@@ -1102,13 +1106,11 @@ const CompFormpres = () => {
   const cargarDatosP = async (val, ub) => {
     NextRegister(1)
     const Ub = ub;
-    console.log(val, Ub);
     await fetch(URI + "pers/" + val)
       .then((resp) => resp.json())
       .then((data) => {
         const Perso = data[ 0 ];
         setPers(Perso);
-        console.log(Perso);
         if (ub == 1 && selectNidA == 1) {
           const nombre = Perso?.nombre;
           setnombA(nombre);
@@ -1132,13 +1134,11 @@ const CompFormpres = () => {
   };
 
   const cargarDatosC = async (val, ub) => {
-    console.log("En cargardatosC");
     await fetch(URI + "comer/" + val)
       .then((resp) => resp.json())
       .then((data) => {
         const Comer = data[ 0 ];
         setComer(Comer);
-        console.log(ub);
         if (ub == 1 && selectNidA == 3) {
           if (
             Comer?.fantasy_name == "NULL" ||
@@ -1160,7 +1160,8 @@ const CompFormpres = () => {
             const nombreF = Comer?.fantasy_name;
             setinvisibleAp1("d-block col-md-4");
             setlblinputName("Nombre de Empresa o institucion");
-            setlblapell1A("Nombre de Fantasía (Opcional)");
+            setlblapell1C("Nombre de Fantasía (Opcional)");
+            setapell2A("NO INDICA");
             setnombA(nombreE);
             setapell1A(nombreF);
           } else if (
@@ -1175,11 +1176,11 @@ const CompFormpres = () => {
             setinvisibleAp1("d-block col-md-4");
             setlblinputName("Nombre de Empresa o institucion");
             setlblapell1A("Nombre de Fantasía (Opcional)");
+            setapell2A("NO INDICA");
             setnombA(nombreE);
             setapell1A(nombreF);
           }
         } else if (ub == 2 && selectNidC == 3) {
-          console.log("segundo if de comer");
           if (
             Comer?.fantasy_name == "NULL" ||
             Comer?.fantasy_name == null ||
@@ -1193,8 +1194,10 @@ const CompFormpres = () => {
             setinvisibleAp1C("d-block col-md-4");
             setlblinputNameC("Nombre de Empresa o institucion");
             setlblapell1C("Nombre de Fantasía (Opcional)");
+            setapell2C("NO INDICA");
             setapell1C("");
-            console.log("si no hay nombre de fantasia");
+            setRsocial(nombreC);
+            console.log(rsocial, nfantasy)
           } else if (
             Comer?.fantasy_name != "NULL" ||
             Comer?.fantasy_name != null ||
@@ -1205,23 +1208,31 @@ const CompFormpres = () => {
             const nombreF = Comer?.fantasy_name;
             setinvisibleAp1("d-block col-md-4");
             setlblinputName("Nombre de Empresa o institucion");
-            setlblapell1A("Nombre de Fantasía (Opcional)");
-            setnombA(nombreE);
-            setapell1A(nombreF);
+            setlblapell1C("Nombre de Fantasía (Opcional)");
+            setapell2C("NO INDICA");
+            setonlyRnombC(nombreE);
+            setapell1C(nombreF);
+            setRsocial(nombC);
+            setNfantasy(apell1C);
+            console.log(rsocial, nfantasy)
           } else if (
             (Comer?.fantasy_name == "NULL" ||
               Comer?.fantasy_name == null ||
               Comer?.fantasy_name == "NA" ||
               Comer?.fantasy_name == "N/A") &&
-            Comer?.business_name == null
+              Comer?.business_name == null
           ) {
             const nombreE = Comer?.business_name;
             const nombreF = Comer?.fantasy_name;
             setinvisibleAp1C("d-block col-md-4");
             setlblinputNameC("Nombre de Empresa o institucion");
             setlblapell1C("Nombre de Fantasía (Opcional)");
+            setapell2C("NO INDICA");
             setnombC(nombreE);
             setapell1C(nombreF);
+            setRsocial(nombC);
+            setNfantasy(apell1C);
+            console.log(rsocial, nfantasy)           
           }
         } else if (ub == 2 && selectNidC == 1) {
           cargarDatosP(val, ub);
@@ -1519,7 +1530,7 @@ const CompFormpres = () => {
               type="text"
               className={`form-control ${tlclValid}`}
               id="inputTel"
-              defaultValue={tel}
+              value={tel}
               required
               disabled={dehabil}
               onChange={(e) => ValidarinputTel(e.target.value, 1)}
