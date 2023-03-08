@@ -82,7 +82,7 @@ function Login() {
       <main className="form-signin">
         <div className="shadow-lg p-2 mb-5 mt-2 bg-body rounded background: transparent">
         <form>
-          <img className="mb-4 mt-4 rounded-circle" src="logo.png" alt="Reportes Listos" width="150" height="150" />
+          <img className="mb-4 mt-4 border border-5 rounded-circle" src="logo.png" alt="Reportes Listos" width="160" height="160" />
 
           <div className="form-floating">
             <input type="text" className="form-control" id="user" name='User_id' placeholder="Usuario" onChange={(e) => CargarDatos(e)} autoComplete="off" />
@@ -93,7 +93,7 @@ function Login() {
             <label htmlFor="pass">Contraseña</label>
           </div>
 
-          <button className="w-100 btn btn-lg btn-primary" type="submit" onClick={(e)=>{LoginCheck(e)}}>Ingresar</button>
+          <button className="w-100 btn btn-lg btn-primary" type="submit" onClick={(e)=>LoginCheck(e)}>Ingresar</button>
 
         </form>
         </div>

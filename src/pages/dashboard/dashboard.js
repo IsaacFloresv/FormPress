@@ -1,94 +1,164 @@
-import { useState } from 'react';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import Cookies from 'universal-cookie'
-import "./dashboard.css"
 
-const cookies = new Cookies()
 
+const meicimg = "logo_meic.jpg";
+const URI = "https://fwmback-production.up.railway.app/asepress";
 
 function Dashboard() {
 
-  const [ agente, setAgente ] = useState(cookies.get('info'))
+  const [ reportes, setReportes ] = useState([])
+  useEffect(() => {
+    getReportes()
+  }, [])
 
-
-  //Cerrar Secion
-  const CerrarSession = () => {
-    cookies.remove('info')
-    cookies.remove('token')
-  }
-
-  const Redireccion = () => {
-    if (cookies.get('info')) {
-      window.location.assign('/formpres') 
-    }
+  const getReportes = async () => {
+    const res = await axios.get(URI)
+    const report = res.data
+    setReportes(report)
+    console.log(report)
   }
 
   return (
-    <body>
-
-      <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow container-flud">
-        <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 bg-transparent" href="#">ATENCION EN PLATAFORMA MEIC</a>
-        <h2 className="navbar-brand col-md-3 col-lg-2 fs-6 bg-transparent text-end"> Agente: {agente}</h2>
-        <div className="navbar-nav">
-          <div className="nav-item text-nowrap">
-            <a className="nav-link px-3" href="/login" onClick={CerrarSession}>SALIR</a>
-          </div>
-        </div>
-      </header>
-
-      <div className="container-fluid">
-        <div className="row">
-          <nav id="sidebarMenu" className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-            <div className="position-sticky pt-3 sidebar-sticky">
-              <ul className="nav flex-column">
-                <li className="nav-item">
-                    <span data-feather="home" className="align-text-bottom">
-                    Opciones</span>
+    <>
+      <nav class="navbar bg-body-white fixed-top position-relative shadow">
+        <div class="container-fluid">
+          <img
+            src={meicimg}
+            alt="MEIC"
+            width="140"
+            height="55"
+            className="d-flex justify-content-start"
+          />
+          <p class="navbar-brand ">GESTION DE REPORTES MEIC</p>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Opciones</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="#">Inicio</a>
                 </li>
-                <li className="nav-item">
-                  <a className="nav-link" onClick={Redireccion()}>
-                    <span data-feather="file" className="align-text-bottom">
-                    Agregar solicitud de Asesoria Presencial</span>
-                  </a>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Reportes</a>
                 </li>
-                <li className="d-none nav-item">
-                  <a className="nav-link" >
-                    <span data-feather="shopping-cart" className="align-text-bottom"></span>
-                    Listado de solicitudes de Asesoria Presencial
-                  </a>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Salir</a>
                 </li>
               </ul>
             </div>
-          </nav>
+          </div>
+        </div>
+      </nav>
 
-          <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div
-              className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-              <h1 className="h2">Vista general</h1>
-
-              <div className="btn-toolbar mb-2 mb-md-0">
-                <div className="btn-group me-2">
-                  <button type="button" className="d-none btn btn-sm btn-outline-secondary">Export</button>
-                </div>
-              </div>
-            </div>
-
-            <canvas className="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-
-          </main>
+      <div className="container mt-5">
+        <div className="row">
+          <label>Filtros</label>
+          <div className="col">
+            <input type="date" id="start" name="trip-start"
+              value="2018-07-22"
+              min="2018-01-01" max="2018-12-31" />
+          </div>
         </div>
       </div>
 
+      <div className="container-fluid pt-5 mt-5 position-absolute top-50 start-0 translate-middle-y  table-bordered border-primary rounded">
+        <table className="table table-dark table-striped caption-top badge text-nowrap table-bordered border-primary rounded overflow-x-scroll">
+          <caption>Reportes solicitud de asesoria presencial</caption>
+          <button className="btn btn-success">Exportar datos a Excel</button><button className="btn btn-success">Exportar datos a Excel</button><button className="btn btn-success">Exportar datos a Excel</button>
+          <thead>
+            <tr>
+              <th scope="col"># Reporte</th>
+              <th scope="col">Agente</th>
+              <th scope="col">Creado</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Origen</th>
+              <th scope="col">Usuario Esp.</th>
+              <th scope="col">Observasión</th>
+              <th scope="col">Tipo Ident.</th>
+              <th scope="col">N. Ident.</th>
+              <th scope="col">Nombre Cliente</th>
+              <th scope="col">1er Apell Cliente</th>
+              <th scope="col">2do Apell Cliente</th>
+              <th scope="col">Correo 1</th>
+              <th scope="col">Correo 2</th>
+              <th scope="col">Telefono 1</th>
+              <th scope="col">Telefono 2</th>
+              <th scope="col">Provincia</th>
+              <th scope="col">Canton</th>
+              <th scope="col">Distrito</th>
+              <th scope="col">Materia</th>
+              <th scope="col">Asunto Consult.</th>
+              <th scope="col">Bien</th>
+              <th scope="col">Tipo Ident. Comerciante</th>
+              <th scope="col">N. Ident. Comerciante</th>
+              <th scope="col">Razon Social/Nombre Comerciante</th>
+              <th scope="col">Nombre Fantasía</th>
+              <th scope="col">Descripción del caso</th>
+              <th scope="col">Respuesta Enviada</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reportes.map((reportes) => (
+              <tr key={reportes.id}>
+                <th scope="row">{reportes.id_report}</th>
+                <td>{reportes.id_agente}</td>
+                <td>{reportes.fchacomplet}</td>
+                <td>{reportes.status}</td>
+                <td>{reportes.origen_r}</td>
+                <td>{reportes.usuario_s}</td>
+                <td>{reportes.us_obser}</td>
+                <td>{reportes.tdia}</td>
+                <td>{reportes.ndia}</td>
+                <td>{reportes.nomba}</td>
+                <td>{reportes.apell1a}</td>
+                <td>{reportes.apell2a}</td>
+                <td>{reportes.email}</td>
+                <td>{reportes.email2}</td>
+                <td>{reportes.tel}</td>
+                <td>{reportes.tel2}</td>
+                <td>{reportes.provi}</td>
+                <td>{reportes.canto}</td>
+                <td>{reportes.distr}</td>
+                <td>{reportes.materia}</td>
+                <td>{reportes.asunto}</td>
+                <td>{reportes.bien}</td>
+                <td>{reportes.tdic}</td>
+                <td>{reportes.ndic}</td>
+                <td>{reportes.razon_social}</td>
+                <td>{reportes.nombre_fantasia}</td>
+                <td>{reportes.desch}</td>
+                <td>{reportes.respe}</td>
+              </tr>
+            )
+            )}
+          </tbody>
+        </table>
+        <nav aria-label="...">
+          <ul class="pagination">
+            <li class="page-item disabled">
+              <a class="page-link">Previous</a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item" aria-current="page">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
 
-      <script src="js/bootstrap.bundle.min.js"></script>
-
-      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-        crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
-        integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
-        crossorigin="anonymous"></script>
-      <script src="dashboard.js"></script>
-    </body>
+      </div>
+    </>
   );
 }
 
