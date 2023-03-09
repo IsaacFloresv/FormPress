@@ -3,11 +3,25 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Cookies from 'universal-cookie'
 
+import ReactHTMLTableToExcel from './ReactHTMLTableToExcel.jsx'
 
+
+const cookies = new Cookies()
 const meicimg = "logo_meic.jpg";
 const URI = "https://fwmback-production.up.railway.app/asepress";
 
+
+
 function Dashboard() {
+  const [ agente, setAgente ] = useState(cookies.get('info'))
+
+  const CerrarSession = () => {
+    const respuesta = confirm("¿Desea salir?")
+    if (respuesta == true) {
+      cookies.remove('info')
+      cookies.remove('token')
+    }
+  }
 
   const [ reportes, setReportes ] = useState([])
   useEffect(() => {
@@ -18,13 +32,12 @@ function Dashboard() {
     const res = await axios.get(URI)
     const report = res.data
     setReportes(report)
-    console.log(report)
   }
 
   return (
     <>
-      <nav class="navbar bg-body-white fixed-top position-relative shadow">
-        <div class="container-fluid">
+      <nav className="navbar bg-body-white fixed-top position-relative shadow">
+        <div className="container-fluid">
           <img
             src={meicimg}
             alt="MEIC"
@@ -32,25 +45,50 @@ function Dashboard() {
             height="55"
             className="d-flex justify-content-start"
           />
-          <p class="navbar-brand ">GESTION DE REPORTES MEIC</p>
-          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-            <span class="navbar-toggler-icon"></span>
+          <p className="fs-2 fw-bolder text-center clrTitle">GESTION DE REPORTES MEIC</p>
+          <p className="mt-5 text-secondary d-flex flex-row-reverse">
+            Agente: {agente}
+          </p>
+          <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Opciones</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          <div className="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div className="offcanvas-header">
+              <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Opciones</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <div class="offcanvas-body">
-              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="#">Inicio</a>
+            <div className="offcanvas-body">
+              <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li className="nav-item">
+                  <Link
+                    to={"/home"}
+                    id="btnenviar"
+                    type="buttom"
+                    className="nav-link"
+                    aria-current="page">
+                    Inicio
+                  </Link>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Reportes</a>
+                <li className="nav-item">
+                  <Link
+                    to={"/formpres"}
+                    id="btnenviar"
+                    type="button"
+                    className="nav-link"
+                    aria-current="page">
+                    Reportes Solicitud asesoria Presencial
+                  </Link>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Salir</a>
+                <li className="nav-item">
+                  <Link
+                    to={"/"}
+                    id="btncerrar"
+                    type="button"
+                    className="nav-link"
+                    onClick={() => CerrarSession()}
+                    aria-current="page">
+                    Salir
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -58,21 +96,30 @@ function Dashboard() {
         </div>
       </nav>
 
-      <div className="container mt-5">
+      <div className="d-none container-fluid my-3">
         <div className="row">
           <label>Filtros</label>
           <div className="col">
-            <input type="date" id="start" name="trip-start"
-              value="2018-07-22"
-              min="2018-01-01" max="2018-12-31" />
+            <input type="date" />
           </div>
         </div>
       </div>
 
-      <div className="container-fluid pt-5 mt-5 position-absolute top-50 start-0 translate-middle-y  table-bordered border-primary rounded">
-        <table className="table table-dark table-striped caption-top badge text-nowrap table-bordered border-primary rounded overflow-x-scroll">
+      <div className="container-fluid position-fixed pt-5 mt-5 top-50 start-50 translate-middle table-bordered border-primary rounded">
+        <div className="d-flex flex-row mb-1">
+          <ReactHTMLTableToExcel
+          id="test-table-xls-button"
+          className="btn btn-success me-1"
+          table="RepoSoliPres"
+          filename="Reporte General"
+          sheet="Solicitud Presencial de Asesorias"
+          buttonText="Exportar datos a Excel"
+        />
+          <button className="d-none btn btn-success me-1">Exportar datos a PDF</button>
+          <button className="d-none btn btn-success">Exportar datos a CSV</button>
+        </div>
+        <table id="RepoSoliPres" data-excel-name="Reportes Solicitud Presencial Asesoria" className="table table-dark table-striped caption-top badge text-nowrap table-bordered border-primary rounded overflow-x-scroll">
           <caption>Reportes solicitud de asesoria presencial</caption>
-          <button className="btn btn-success">Exportar datos a Excel</button><button className="btn btn-success">Exportar datos a Excel</button><button className="btn btn-success">Exportar datos a Excel</button>
           <thead>
             <tr>
               <th scope="col"># Reporte</th>
@@ -110,7 +157,7 @@ function Dashboard() {
               <tr key={reportes.id}>
                 <th scope="row">{reportes.id_report}</th>
                 <td>{reportes.id_agente}</td>
-                <td>{reportes.fchacomplet}</td>
+                <td>{reportes.fchareg}</td>
                 <td>{reportes.status}</td>
                 <td>{reportes.origen_r}</td>
                 <td>{reportes.usuario_s}</td>
@@ -142,17 +189,17 @@ function Dashboard() {
           </tbody>
         </table>
         <nav aria-label="...">
-          <ul class="pagination">
-            <li class="page-item disabled">
-              <a class="page-link">Previous</a>
+          <ul className="pagination">
+            <li className="page-item disabled">
+              <a className="page-link">Previous</a>
             </li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item" aria-current="page">
-              <a class="page-link" href="#">2</a>
+            <li className="page-item active"><a className="page-link" href="#">1</a></li>
+            <li className="page-item" aria-current="page">
+              <a className="page-link" href="#">2</a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
+            <li className="page-item"><a className="page-link" href="#">3</a></li>
+            <li className="page-item">
+              <a className="page-link" href="#">Next</a>
             </li>
           </ul>
         </nav>

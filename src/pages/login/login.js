@@ -62,7 +62,7 @@ function Login() {
             cookies.set('token', resp)
             cookies.set('info', Agente)
             console.log(resp, Agente)
-            navigate('/formpres')
+            navigate('/home')
             //window.location = '/formpres'
           }else{
             alert('El usuario y/o la contraseña no son correctos')

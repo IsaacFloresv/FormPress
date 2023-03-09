@@ -64,3 +64,8 @@ containerS {
     font-size: 3.5rem;
   }
 }
+
+.clrTitle {
+  color: rgb(0,76,142);
+  font-weight: bold;
+}

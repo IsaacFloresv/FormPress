@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Select from "react-select";
 import Cookies from 'universal-cookie'
@@ -14,12 +14,12 @@ const CompFormpres = () => {
 
   const CerrarSession = () => {
     const respuesta = confirm("¿Desea salir?")
-    console.log(respuesta)
     if (respuesta == true) {
       cookies.remove('info')
       cookies.remove('token')
     }
   }
+
   //Obtener el numero del ultimo
   const NextRegister = async (v) => {
     let headersList = {
@@ -37,10 +37,9 @@ const CompFormpres = () => {
     let data = await response.text();
     const rmay = ++data
     const may = rmay
-    const fecha = new Date().toLocaleString();
 
     if (v === 2) { setidNR(data) }
-    setFchareg(fecha)
+
     setnRegistro(may)
   };
 
@@ -48,8 +47,6 @@ const CompFormpres = () => {
     NextRegister(2)
     alert("Se procede a guardar los datos");
     var nagente = cookies.get('info')
-    
-    console.log(rsocial, nfantasy)
     let headersList = {
       Accept: "*/*",
       "User-Agent": "Thunder Client (https://www.thunderclient.com)",
@@ -92,7 +89,6 @@ const CompFormpres = () => {
       id_audio: idaudio,
       id_correo: idcorreo,
     });
-    console.log(bodyContent)
     let response = await fetch(
       "https://fwmback-production.up.railway.app/asepress",
       {
@@ -103,7 +99,6 @@ const CompFormpres = () => {
     );
 
     let data = await response.text();
-    console.log(data)
     alert("Registro Creado Correctamente....");
   };
 
@@ -114,25 +109,25 @@ const CompFormpres = () => {
     const NR = 1;
     if (NR != null) {
       if (
-        telorigen !== "" &&
-        agente !== "" &&
-        usobser !== "" &&
-        ndiA !== "" &&
-        nombA !== "" &&
-        apell1A !== "" &&
-        apell2A !== "" &&
-        email2 !== "" &&
-        email !== "" &&
-        tel !== "" &&
-        tel2 !== "" &&
-        fchaHech !== "" &&
-        fchaGar !== "" &&
-        ndiC !== "" &&
-        nombC !== "" &&
-        apell1C !== "" &&
-        apell2C !== "" &&
-        descH !== "" &&
-        resp !== ""
+        (telorigen !== "" &&  telorigen !== " ")&&
+        (agente !== "" && agente !== " ") &&
+        (usobser !== ""&&usobser !== " ") &&
+        (ndiA !== ""&&ndiA !== " ") &&
+        (nombA !== ""&&nombA !== " ") &&
+        (apell1A !== ""&&apell1A !== " ") &&
+        (apell2A !== ""&&apell2A !== " ") &&
+        (email2 !== ""&&email2 !== " ") &&
+        (email !== "" && email !== " ") &&
+        (tel !== ""&&tel !== " ") &&
+        (tel2 !== ""&&tel2 !== " ") &&
+        (fchaHech !== ""&&fchaHech !== " ") &&
+        (fchaGar !== ""&&fchaGar !== " ") &&
+        (ndiC !== ""&&ndiC !== " ") &&
+        (nombC !== ""&&nombC !== " ") &&
+        (apell1C !== ""&&apell1C !== " ") &&
+        (apell2C !== ""&&apell2C !== " ") &&
+        (descH !== ""&&descH !== " ") &&
+        (resp !== ""&&resp !== " ")
       ) {
         EnviarDatos();
       } else {
@@ -148,6 +143,11 @@ const CompFormpres = () => {
   const [ prov, setProv ] = useState([]);
   const [ cant, setCant ] = useState([]);
   const [ dist, setDist ] = useState([]);
+  useEffect(() => {
+    getProvs()
+    getMaterias()
+    getBienes()
+  }, [])
 
   //
   const [ materia, setMateria ] = useState([]);
@@ -231,15 +231,15 @@ const CompFormpres = () => {
   const [ dehabiltel2, setdehabiltel2 ] = useState(false);
   const [ dehabilem2, setdehabilem2 ] = useState(false);
   const [ deshabProv, setdeshabProv ] = useState(false);
-  const [ deshabCant, setdeshabCant ] = useState(false);
-  const [ deshabDist, setdeshabDist ] = useState(false);
+  const [ deshabCant, setdeshabCant ] = useState(true);
+  const [ deshabDist, setdeshabDist ] = useState(true);
   const [ dehabilndiC, setdehabilndiC ] = useState(false);
   const [ dehabilnombC, setdehabilnombC ] = useState(false);
   const [ dehabilapell1C, setdehabilapell1C ] = useState(false);
   const [ dehabilapell2C, setdehabilapell2C ] = useState(false);
-  const [ deshabMateria, setdeshabMateria ] = useState(false);
-  const [ deshabAConsultado, setdeshabAConsultado ] = useState(false);
-  const [ deshabBien, setdeshabBien ] = useState(false);
+  const [ deshabMateria, setdeshabMateria ] = useState(true);
+  const [ deshabAConsultado, setdeshabAConsultado ] = useState(true);
+  const [ deshabBien, setdeshabBien ] = useState(true);
 
   //useState para guardar datos de ubicacion
   const [ provi, setProvi ] = useState(false);
@@ -327,6 +327,29 @@ const CompFormpres = () => {
     setnClValidC("");
     setpaClValidC("");
     setsaClValidC("");
+  }
+
+  function cleanForm() {
+     limpiardatosA()
+    setEmail('')
+    setEmail2('')
+    setTel('')
+    setTel2('')
+    setubProv('')
+    setubCant('')
+    setdeshabCant(true)
+    setubDist('')
+    setdeshabDist(true)
+    setubMat('')
+   setubAsu('')
+   setdeshabAConsultado(true)
+    setubBie('')
+    setdeshabBien(true)
+    setRsocial('')
+    setNfantasy('')
+    limpiardatosC()
+    setdescH('')
+    setResp('')
   }
 
   const OrigenChange = (e) => {
@@ -505,9 +528,9 @@ const CompFormpres = () => {
   //#region Validaciones de input
 
   //Cambio de valor del input email2 y tel2
-  const changeTeloEmail = (val, ub) => {
+  const changeTeloEmail = (val, ub) => {   
     if (ub === 1) {
-      if (val.target.checked) {
+      if (val?.target.checked) {
         setEmail2("No indica");
         setdehabilem2(true);
         setemClValid2("");
@@ -517,7 +540,7 @@ const CompFormpres = () => {
         setemClValid2("");
       }
     } else if (ub === 2) {
-      if (val.target.checked) {
+      if (val?.target.checked) {
         setTel2("0000-0000");
         setdehabiltel2(true);
         settlClValid2("");
@@ -588,8 +611,8 @@ const CompFormpres = () => {
     if (resp) {
       if (Ub === 1) {
         //setdeshabProv(false);
-        getProvs();
-        getBienes();
+        //getProvs();
+        //getBienes();
         settlClValid("is-valid");
         let tele = val;
         tele =
@@ -811,7 +834,7 @@ const CompFormpres = () => {
 
   const ValidarinputApp1C = (val) => {
     const valor = val;
-    setapell1C(valor);    
+    setapell1C(valor);
     setNfantasy(apell1C);
     if (lblapell1C != "Nombre de Fantasía (Opcional)") {
       if (val.toString().length >= 1) {
@@ -843,11 +866,11 @@ const CompFormpres = () => {
   };
 
   const ValidarinputHecho = (val) => {
-    const valor = val;
+    const valor = val.trimStart();
     setdescH(valor);
 
     setNfantasy(apell1C);
-    if (val.toString().length >= 0) {
+    if (val.toString().length >= 0 && val != ' ') {
       setdhClValid("is-valid");
     } else {
       setdhClValid("is-invalid");
@@ -855,12 +878,12 @@ const CompFormpres = () => {
   };
 
   const ValidarinputResp = (val) => {
-    const valor = val;
+    const valor = val.trimStart();
     setResp(valor);
-    
+
     setNfantasy(apell1C);
 
-    if (val.toString().length >= 0) {
+    if (val.toString().length >= 0 && val != ' ') {
       setRespClValid("is-valid");
       setdehabilSubmit(false);
     } else {
@@ -870,6 +893,8 @@ const CompFormpres = () => {
 
   //Validacion del campo inputCed del afectado
   const validarInputCedA = (val, ub) => {
+    const fecha = new Date().toLocaleString();
+    setFchareg(fecha)
     const valor = val;
     setndiA(valor);
     if (ub == 1) {
@@ -1006,7 +1031,7 @@ const CompFormpres = () => {
     const res = await axios.get(URI + "prov/");
     setProv(res.data);
 
-    getCants();
+    //getCants();
   };
 
   //Mostrar los cantones por provincia
@@ -1015,7 +1040,7 @@ const CompFormpres = () => {
     console.log("getCant", val);
     if (val != null) {
       setdeshabCant(false);
-      setdeshabDist(true);
+      
 
       let index = v.target.selectedIndex;
       let ubprov = v.target.options[ index ].text;
@@ -1041,6 +1066,7 @@ const CompFormpres = () => {
       setidCant(val);
       const res = await axios.get(URI + "dist/" + val);
       setDist(res.data);
+      setdeshabMateria(false)
     }
   };
 
@@ -1052,7 +1078,7 @@ const CompFormpres = () => {
       let ubdist = v.target.options[ index ].text;
       setDistr(ubdist);
       setidDist(val);
-      getMaterias();
+      //getMaterias();
     }
   };
 
@@ -1064,17 +1090,20 @@ const CompFormpres = () => {
   //Mostrar los cantones por provincia
   const getAsuntConsultado = async (v) => {
     const val = v?.target.value;
-    console.log(val);
+    
+    console.log(val)
     if (val != null) {
-      //setdeshabAConsultado(false);
+      setdeshabAConsultado(false);
 
       let index = v.target.selectedIndex;
       let Materia = v.target.options[ index ].text;
       setubMat(Materia);
       setidMat(val);
+      
+    console.log(index, Materia)
       const res = await axios.get(URI + "asu/" + val);
       setAsunto(res.data);
-      getBienes();
+      //getBienes();
     } else {
       setubCant("0");
       setubDist("0");
@@ -1097,7 +1126,7 @@ const CompFormpres = () => {
     if (v.label != null) {
       const val = v.label;
       setubBie(val);
-      setidBie(v.value);   
+      setidBie(v.value);
     }
   };
   //#endregion
@@ -1220,7 +1249,7 @@ const CompFormpres = () => {
               Comer?.fantasy_name == null ||
               Comer?.fantasy_name == "NA" ||
               Comer?.fantasy_name == "N/A") &&
-              Comer?.business_name == null
+            Comer?.business_name == null
           ) {
             const nombreE = Comer?.business_name;
             const nombreF = Comer?.fantasy_name;
@@ -1232,7 +1261,7 @@ const CompFormpres = () => {
             setapell1C(nombreF);
             setRsocial(nombC);
             setNfantasy(apell1C);
-            console.log(rsocial, nfantasy)           
+            console.log(rsocial, nfantasy)
           }
         } else if (ub == 2 && selectNidC == 1) {
           cargarDatosP(val, ub);
@@ -1542,7 +1571,7 @@ const CompFormpres = () => {
             </label>
             <input
               className="form-check-input me-2"
-              type="checkbox"
+              type="checkbox"              
               value={tel2}
               id="flexCheckDefault"
               disabled={dehabil}
@@ -1731,8 +1760,7 @@ const CompFormpres = () => {
             </label>
             <Select
               name="bien"
-              id="selectBien"
-              disabled={deshabBien}
+              id="selectBien"              
               onChange={(e) => defbien(e)}
               defaultValue={idBie}
               options={bien.map((bien) => ({
@@ -1740,6 +1768,7 @@ const CompFormpres = () => {
                 value: bien.id,
               }))}
               required
+              disabled
             />
           </div>
         </div>
@@ -1893,13 +1922,13 @@ const CompFormpres = () => {
           </div>
         </div>
         <div className="row justify-content-md-center">
-          <div className="col col-lg-4 ">
+          <div className="col col-lg-3 ">
             <button
               id="btnenviar"
               type="submit"
               className="d-none p-3 m-3 btn btn-success fw-bolder float-end"
-              //onClick={(e) => validarbtnSubmit(e)}
-              disabled>
+              onClick={() => cleanForm()}
+              >
               Escalar
             </button>
           </div>
@@ -1913,7 +1942,7 @@ const CompFormpres = () => {
               Guardar Registro
             </button>
           </div>
-          <div className="col col-lg-4">
+          <div className="col-md-auto">
             <Link
               to={"/"}
               id="btnenviar"
@@ -1922,6 +1951,15 @@ const CompFormpres = () => {
               onClick={() => CerrarSession()}>
               Salir
             </Link>
+          </div>
+          <div className="col-md-auto">
+            <button
+              id="btnNewForm"
+              type="buttom"
+              onClick={()=>window.location.reload()}
+              className="p-3 m-3 btn btn-danger fw-bolder float-start">
+              Formulario Nuevo
+            </button>
           </div>
         </div>
       </form>
