@@ -95,31 +95,29 @@ function Home() {
         </div>
       </nav>
 
-      <div className="d-none container-fluid my-3">
+ 
+          <br/>
+        <br/>
+      <br/>
+      <br/>
+        <br/>
+      <br/>
+      <div className="container-fluid top-50">
         <div className="row">
-          <label>Filtros</label>
-          <div className="col">
-            <input type="date" />
-          </div>
-        </div>
-      </div>
-      <div className="container-fluid position-relative mt-5">
-        <div className="row">
-          <img
+      <img
             src={meicimg}
             alt="MEIC"
-            width="100"
+            width="160"
             height="200"
-            className="col"
+            className="col d-flex justify-content-start"
           /> <img
-            src={alegaimg}
-            alt="ALEGA"
-            width="100"
-            height="200"
-            className="col"
-          />
-          </div>
-      </div>
+          src={alegaimg}
+          alt="ALEGA"
+          width="160"
+          height="200"
+          className="col d-flex justify-content-end"
+        />
+      </div></div>
     </>
   );
 }
