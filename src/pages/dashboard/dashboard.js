@@ -70,14 +70,14 @@ function Dashboard() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link
-                    to={"/formpres"}
+                  <a
+                    href={"/formpres"}
                     id="btnenviar"
                     type="button"
                     className="nav-link"
                     aria-current="page">
                     Reportes Solicitud asesoria Presencial
-                  </Link>
+                  </a>
                 </li>
                 <li className="nav-item">
                   <Link
@@ -104,7 +104,18 @@ function Dashboard() {
           </div>
         </div>
       </div>
-
+      <br/>
+        <br/>
+      <br/>
+      <br/>
+        <br/>
+      <br/>
+      <br/>
+        <br/>
+      <br/>
+      <br/>
+        <br/>
+      <br/>
       <div className="container-fluid position-fixed pt-5 mt-5 top-50 start-50 translate-middle table-bordered border-primary rounded">
         <div className="d-flex flex-row mb-1">
           <ReactHTMLTableToExcel
