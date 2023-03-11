@@ -89,17 +89,19 @@ const CompFormpres = () => {
       id_audio: idaudio,
       id_correo: idcorreo,
     });
-    let response = await fetch(
-      "https://fwmback-production.up.railway.app/asepress",
-      {
-        method: "POST",
-        body: bodyContent,
-        headers: headersList,
-      }
-    );
 
-    let data = await response.text();
-    alert("Registro Creado Correctamente....");
+    console.log(bodyContent)
+    /* let response = await fetch(
+       "https://fwmback-production.up.railway.app/asepress",
+       {
+         method: "POST",
+         body: bodyContent,
+         headers: headersList,
+       }
+     );
+ 
+     let data = await response.text();
+     alert("Registro Creado Correctamente....");*/
   };
 
   //Validacion de formulario antes de enviar correo
@@ -109,25 +111,25 @@ const CompFormpres = () => {
     const NR = 1;
     if (NR != null) {
       if (
-        (telorigen !== "" &&  telorigen !== " ")&&
+        (telorigen !== "" && telorigen !== " ") &&
         (agente !== "" && agente !== " ") &&
-        (usobser !== ""&&usobser !== " ") &&
-        (ndiA !== ""&&ndiA !== " ") &&
-        (nombA !== ""&&nombA !== " ") &&
-        (apell1A !== ""&&apell1A !== " ") &&
-        (apell2A !== ""&&apell2A !== " ") &&
-        (email2 !== ""&&email2 !== " ") &&
+        (usobser !== "" && usobser !== " ") &&
+        (ndiA !== "" && ndiA !== " ") &&
+        (nombA !== "" && nombA !== " ") &&
+        (apell1A !== "" && apell1A !== " ") &&
+        (apell2A !== "" && apell2A !== " ") &&
+        (email2 !== "" && email2 !== " ") &&
         (email !== "" && email !== " ") &&
-        (tel !== ""&&tel !== " ") &&
-        (tel2 !== ""&&tel2 !== " ") &&
-        (fchaHech !== ""&&fchaHech !== " ") &&
-        (fchaGar !== ""&&fchaGar !== " ") &&
-        (ndiC !== ""&&ndiC !== " ") &&
-        (nombC !== ""&&nombC !== " ") &&
-        (apell1C !== ""&&apell1C !== " ") &&
-        (apell2C !== ""&&apell2C !== " ") &&
-        (descH !== ""&&descH !== " ") &&
-        (resp !== ""&&resp !== " ")
+        (tel !== "" && tel !== " ") &&
+        (tel2 !== "" && tel2 !== " ") &&
+        (fchaHech !== "" && fchaHech !== " ") &&
+        (fchaGar !== "" && fchaGar !== " ") &&
+        (ndiC !== "" && ndiC !== " ") &&
+        (nombC !== "" && nombC !== " ") &&
+        (apell1C !== "" && apell1C !== " ") &&
+        (apell2C !== "" && apell2C !== " ") &&
+        (descH !== "" && descH !== " ") &&
+        (resp !== "" && resp !== " ")
       ) {
         EnviarDatos();
       } else {
@@ -195,9 +197,9 @@ const CompFormpres = () => {
   const [ apell1A, setapell1A ] = useState("");
   const [ apell2A, setapell2A ] = useState("");
   const [ tel, setTel ] = useState();
-  const [ tel2, setTel2 ] = useState();
+  const [ tel2, setTel2 ] = useState("0000-0000");
   const [ email, setEmail ] = useState();
-  const [ email2, setEmail2 ] = useState();
+  const [ email2, setEmail2 ] = useState("NO INDICA");
   const [ fchaHech, setfchaHech ] = useState("NO INDICA");
   const [ fchaGar, setfchaGar ] = useState("NO INDICA");
   const [ descH, setdescH ] = useState();
@@ -228,8 +230,8 @@ const CompFormpres = () => {
   //useState para modificar inputs
   const [ dehabil, setdehabil ] = useState(false);
   const [ dehabil2, setdehabil2 ] = useState(false);
-  const [ dehabiltel2, setdehabiltel2 ] = useState(false);
-  const [ dehabilem2, setdehabilem2 ] = useState(false);
+  const [ dehabiltel2, setdehabiltel2 ] = useState(true);
+  const [ dehabilem2, setdehabilem2 ] = useState(true);
   const [ deshabProv, setdeshabProv ] = useState(false);
   const [ deshabCant, setdeshabCant ] = useState(true);
   const [ deshabDist, setdeshabDist ] = useState(true);
@@ -240,6 +242,9 @@ const CompFormpres = () => {
   const [ deshabMateria, setdeshabMateria ] = useState(true);
   const [ deshabAConsultado, setdeshabAConsultado ] = useState(true);
   const [ deshabBien, setdeshabBien ] = useState(true);
+  const [ checktel2, setCheckTel2 ] = useState(true);
+  const [ checkem2, setCheckEm2 ] = useState(true);
+
 
   //useState para guardar datos de ubicacion
   const [ provi, setProvi ] = useState(false);
@@ -330,7 +335,7 @@ const CompFormpres = () => {
   }
 
   function cleanForm() {
-     limpiardatosA()
+    limpiardatosA()
     setEmail('')
     setEmail2('')
     setTel('')
@@ -341,8 +346,8 @@ const CompFormpres = () => {
     setubDist('')
     setdeshabDist(true)
     setubMat('')
-   setubAsu('')
-   setdeshabAConsultado(true)
+    setubAsu('')
+    setdeshabAConsultado(true)
     setubBie('')
     setdeshabBien(true)
     setRsocial('')
@@ -528,26 +533,30 @@ const CompFormpres = () => {
   //#region Validaciones de input
 
   //Cambio de valor del input email2 y tel2
-  const changeTeloEmail = (val, ub) => {   
+  const changeTeloEmail = (val, ub) => {
     if (ub === 1) {
       if (val?.target.checked) {
         setEmail2("No indica");
         setdehabilem2(true);
         setemClValid2("");
+        setCheckEm2(true)
       } else {
         setEmail2("");
         setdehabilem2(false);
         setemClValid2("");
+        setCheckEm2(false)
       }
     } else if (ub === 2) {
       if (val?.target.checked) {
         setTel2("0000-0000");
         setdehabiltel2(true);
         settlClValid2("");
+        setCheckTel2(true)
       } else {
         setTel2("");
         setdehabiltel2(false);
         settlClValid2("");
+        setCheckTel2(false)
       }
     }
   };
@@ -1040,7 +1049,7 @@ const CompFormpres = () => {
     console.log("getCant", val);
     if (val != null) {
       setdeshabCant(false);
-      
+
 
       let index = v.target.selectedIndex;
       let ubprov = v.target.options[ index ].text;
@@ -1090,7 +1099,7 @@ const CompFormpres = () => {
   //Mostrar los cantones por provincia
   const getAsuntConsultado = async (v) => {
     const val = v?.target.value;
-    
+
     console.log(val)
     if (val != null) {
       setdeshabAConsultado(false);
@@ -1099,8 +1108,8 @@ const CompFormpres = () => {
       let Materia = v.target.options[ index ].text;
       setubMat(Materia);
       setidMat(val);
-      
-    console.log(index, Materia)
+
+      console.log(index, Materia)
       const res = await axios.get(URI + "asu/" + val);
       setAsunto(res.data);
       //getBienes();
@@ -1226,7 +1235,7 @@ const CompFormpres = () => {
             setapell2C("NO INDICA");
             setapell1C("");
             setRsocial(nombreC);
-            console.log(rsocial, nfantasy)
+            console.log(rsocial, nfantasy, '1')
           } else if (
             Comer?.fantasy_name != "NULL" ||
             Comer?.fantasy_name != null ||
@@ -1243,7 +1252,7 @@ const CompFormpres = () => {
             setapell1C(nombreF);
             setRsocial(nombC);
             setNfantasy(apell1C);
-            console.log(rsocial, nfantasy)
+            console.log(rsocial, nfantasy, '2')
           } else if (
             (Comer?.fantasy_name == "NULL" ||
               Comer?.fantasy_name == null ||
@@ -1261,7 +1270,7 @@ const CompFormpres = () => {
             setapell1C(nombreF);
             setRsocial(nombC);
             setNfantasy(apell1C);
-            console.log(rsocial, nfantasy)
+            console.log(rsocial, nfantasy, '3')
           }
         } else if (ub == 2 && selectNidC == 1) {
           cargarDatosP(val, ub);
@@ -1531,8 +1540,8 @@ const CompFormpres = () => {
             <input
               className="form-check-input me-2"
               type="checkbox"
-              defaultValue={naemail2}
               id="naemail2"
+              checked={checkem2}
               disabled={dehabil}
               onChange={(e) => changeTeloEmail(e, 1)}
             />
@@ -1544,8 +1553,8 @@ const CompFormpres = () => {
               type="email"
               className={`form-control ${emclValid2}`}
               id="inputEmail2"
-              defaultValue={email2}
-              required
+              value={email2}
+              required              
               disabled={dehabilem2}
               onChange={(e) => validarInputEmail(e.target.value, 2)}
             />
@@ -1571,9 +1580,9 @@ const CompFormpres = () => {
             </label>
             <input
               className="form-check-input me-2"
-              type="checkbox"              
-              value={tel2}
+              type="checkbox"
               id="flexCheckDefault"
+              checked={checktel2}
               disabled={dehabil}
               onChange={(e) => changeTeloEmail(e, 2)}
             />
@@ -1754,21 +1763,20 @@ const CompFormpres = () => {
               Por favor, selecione un asunto.
             </div>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4" disabled={deshabBien}>
             <label htmlFor="selectBien" className="form-label">
               Bien
             </label>
             <Select
               name="bien"
-              id="selectBien"              
+              id="selectBien"
+              required
               onChange={(e) => defbien(e)}
               defaultValue={idBie}
               options={bien.map((bien) => ({
                 label: bien.desc_bien,
                 value: bien.id,
-              }))}
-              required
-              disabled
+              }))}             
             />
           </div>
         </div>
@@ -1928,7 +1936,7 @@ const CompFormpres = () => {
               type="submit"
               className="d-none p-3 m-3 btn btn-success fw-bolder float-end"
               onClick={() => cleanForm()}
-              >
+            >
               Escalar
             </button>
           </div>
@@ -1956,7 +1964,7 @@ const CompFormpres = () => {
             <button
               id="btnNewForm"
               type="buttom"
-              onClick={()=>window.location.reload()}
+              onClick={() => window.location.reload()}
               className="p-3 m-3 btn btn-danger fw-bolder float-start">
               Formulario Nuevo
             </button>

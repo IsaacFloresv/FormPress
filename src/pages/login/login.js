@@ -6,12 +6,6 @@ import Cookies from "universal-cookie";
 
 import { useNavigate } from "react-router-dom";
 
-
-
-
-
-
-
 //URL del API
 const URI = 'https://fwmback-production.up.railway.app/user'
 const cookies = new Cookies()
@@ -61,7 +55,6 @@ function Login() {
             const {resp, Agente} = response.data
             cookies.set('token', resp)
             cookies.set('info', Agente)
-            console.log(resp, Agente)
             navigate('/home')
             //window.location = '/formpres'
           }else{

@@ -73,7 +73,6 @@ function Dashboard() {
                   <a
                     href={"/formpres"}
                     id="btnenviar"
-                    type="button"
                     className="nav-link"
                     aria-current="page">
                     Reportes Solicitud asesoria Presencial

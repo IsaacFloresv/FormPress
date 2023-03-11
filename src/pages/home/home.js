@@ -69,14 +69,14 @@ function Home() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link
-                    to={"/formpres"}
+                  <a
+                    href={"/formpres"}
                     id="btnenviar"
                     type="button"
                     className="nav-link"
                     aria-current="page">
                     Reportes Solicitud asesoria Presencial
-                  </Link>
+                  </a>
                 </li>
                 <li className="nav-item">
                   <Link
