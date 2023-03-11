@@ -55,14 +55,14 @@ const CerrarSession = () => {
                   </Link>
                 </li>
                 <li class="nav-item">
-                  <Link
-                    to={"/dashboard"}
+                  <a
+                    href={"/dashboard"}
                     id="btnenviar"
                     type="button"
                     className="nav-link"
                     aria-current="page">
                     Vista General
-                  </Link>
+                  </a>
                 </li>
                 <li class="nav-item">
                   <Link

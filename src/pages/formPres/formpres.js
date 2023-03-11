@@ -89,9 +89,8 @@ const CompFormpres = () => {
       id_audio: idaudio,
       id_correo: idcorreo,
     });
-
     console.log(bodyContent)
-    /* let response = await fetch(
+    let response = await fetch(
        "https://fwmback-production.up.railway.app/asepress",
        {
          method: "POST",
@@ -101,7 +100,7 @@ const CompFormpres = () => {
      );
  
      let data = await response.text();
-     alert("Registro Creado Correctamente....");*/
+     alert("Registro Creado Correctamente....");
   };
 
   //Validacion de formulario antes de enviar correo
@@ -111,25 +110,32 @@ const CompFormpres = () => {
     const NR = 1;
     if (NR != null) {
       if (
-        (telorigen !== "" && telorigen !== " ") &&
-        (agente !== "" && agente !== " ") &&
-        (usobser !== "" && usobser !== " ") &&
-        (ndiA !== "" && ndiA !== " ") &&
-        (nombA !== "" && nombA !== " ") &&
-        (apell1A !== "" && apell1A !== " ") &&
-        (apell2A !== "" && apell2A !== " ") &&
-        (email2 !== "" && email2 !== " ") &&
-        (email !== "" && email !== " ") &&
-        (tel !== "" && tel !== " ") &&
-        (tel2 !== "" && tel2 !== " ") &&
-        (fchaHech !== "" && fchaHech !== " ") &&
-        (fchaGar !== "" && fchaGar !== " ") &&
-        (ndiC !== "" && ndiC !== " ") &&
-        (nombC !== "" && nombC !== " ") &&
-        (apell1C !== "" && apell1C !== " ") &&
-        (apell2C !== "" && apell2C !== " ") &&
-        (descH !== "" && descH !== " ") &&
-        (resp !== "" && resp !== " ")
+        (telorigen != "" && telorigen != " ") &&
+        (agente != "" && agente != " ") &&
+        (usobser != "" && usobser != " ") &&
+        (ndiA != "" && ndiA != " ") &&
+        (nombA != "" && nombA != " ") &&
+        (apell1A != "" && apell1A != " ") &&
+        (apell2A != "" && apell2A != " ") &&
+        (email2 != "" && email2 != " ") &&
+        (email != "" && email != " ") &&
+        (tel != "" && tel != " ") &&
+        (tel2 != "" && tel2 != " ") &&
+        (fchaHech != "" && fchaHech != " ") &&
+        (fchaGar != "" && fchaGar != " ") &&
+        (prov != false ) &&
+        (cant != false ) &&
+        (distr != false ) &&
+        (ubMat != '' ) &&
+        (ubAsu != '' ) &&
+        (ubBie != '' ) &&
+        (tdiC != null && tdiC != " ") &&
+        (ndiC != null && ndiC != " ") &&
+        (nombC != "" && nombC != " ") &&
+        (apell1C != "" && apell1C != " ") &&
+        (apell2C != "" && apell2C != " ") &&
+        (descH != "" && descH != " ") &&
+        (resp != "" && resp != " ")
       ) {
         EnviarDatos();
       } else {
@@ -202,21 +208,21 @@ const CompFormpres = () => {
   const [ email2, setEmail2 ] = useState("NO INDICA");
   const [ fchaHech, setfchaHech ] = useState("NO INDICA");
   const [ fchaGar, setfchaGar ] = useState("NO INDICA");
-  const [ descH, setdescH ] = useState();
-  const [ resp, setResp ] = useState();
+  const [ descH, setdescH ] = useState('');
+  const [ resp, setResp ] = useState('');
   const [ ubProv, setubProv ] = useState();
   const [ ubCant, setubCant ] = useState();
   const [ ubDist, setubDist ] = useState();
-  const [ ubMat, setubMat ] = useState();
-  const [ ubAsu, setubAsu ] = useState();
-  const [ ubBie, setubBie ] = useState();
+  const [ ubMat, setubMat ] = useState('');
+  const [ ubAsu, setubAsu ] = useState('');
+  const [ ubBie, setubBie ] = useState('');
 
   //inputs del comerciante
   const [ tdiC, settdiC ] = useState();
   const [ ndiC, setndiC ] = useState();
-  const [ nombC, setnombC ] = useState();
-  const [ apell1C, setapell1C ] = useState();
-  const [ apell2C, setapell2C ] = useState();
+  const [ nombC, setnombC ] = useState('');
+  const [ apell1C, setapell1C ] = useState('');
+  const [ apell2C, setapell2C ] = useState('');
   //const [ lblPHNombFantacy, setlblPHNombFantacy ] = useState()
   const [ lblPHNombFantacyC, setlblPHNombFantacyC ] = useState();
 
@@ -453,7 +459,6 @@ const CompFormpres = () => {
   };
 
   const input_TIDCchange = (val, tID) => {
-    console.log(val, tID);
     setselectNidC(val);
     settdiC(tID);
     const valor = val;
@@ -604,8 +609,6 @@ const CompFormpres = () => {
     const valor = val;
     const Ub = ub;
     let resp = "";
-
-    console.log(val.indexOf("-"), val, ub);
     if (Ub === 1) {
       setTel(val);
     } else if (Ub === 2) {
@@ -651,7 +654,6 @@ const CompFormpres = () => {
 
   const validarFch = (val) => {
     setfchaHech(val);
-    console.log(val);
     if (val != null) {
       setfhHValidC("is-valid");
     } else {
@@ -662,7 +664,6 @@ const CompFormpres = () => {
   const validarFchHyGar = (val) => {
     let index = val.target.selectedIndex;
     let fcgar = val.target.options[ index ].text;
-    console.log(fcgar);
     setfchaGar(fcgar);
 
     if (fchaGar.length != 0) {
@@ -765,7 +766,6 @@ const CompFormpres = () => {
 
   const ValidarinputApp2 = (val) => {
     const valor = val;
-    console.log(val);
     setapell2A(valor);
     if (lblapell1A != "Nombre de Fantasía (Opcional)") {
       if (val.toString().length >= 1) {
@@ -821,7 +821,7 @@ const CompFormpres = () => {
       }
     } else if (
       lblinputNameC == "Nombre de Empresa o institucion" ||
-      lblinputNameC == "Nombre de Fantasía (Opcional)"
+      lblinputNameC == "Nombre de Fantasía (Opcional)" && tdiC != 'NO INDICA'
     ) {
       const valor = val;
       const Ced = ced === 2 ? ndiC : ced;
@@ -835,6 +835,20 @@ const CompFormpres = () => {
             setnClValidC("is-invalid");
           }
         }
+      } else {
+        setnClValidC("is-invalid");
+      }
+    }else if (lblinputNameC == "Nombre de Fantasía (Opcional)" && tdiC === 'NO INDICA') {
+      const valor = val;
+      setnombC(valor);
+      setRsocial(valor)
+      if (valor.toString().length >= 1) {
+          const resp = validarTextEsp(valor);
+          if (resp) {            
+            setnClValidC("is-valid");
+          } else {
+            setnClValidC("is-invalid");
+          }
       } else {
         setnClValidC("is-invalid");
       }
@@ -985,7 +999,6 @@ const CompFormpres = () => {
         }
       } else if (selectNidC === 2) {
         const resp = /^[a-zA-Z0-9]{9}$/.test(val);
-        console.log(resp, val);
         if (resp && valor.toString().length === 9) {
           setidClValidC("is-valid");
         } else {
@@ -998,7 +1011,6 @@ const CompFormpres = () => {
         const resp = /^[a-zA-Z0-9]{10}$/.test(val);
         if (resp && valor.toString().length === 10) {
           setidClValidC("is-valid");
-          console.log("valor =", val, ub);
           cargarDatosC(val, ub);
         } else {
           setidClValidC("is-invalid");
@@ -1030,7 +1042,6 @@ const CompFormpres = () => {
   //#region Funciones para carga de Datos
   const obtNRegistro = async () => {
     const res = await axios.get(URI + "asepres/");
-    console.log(res);
   };
 
   //#region Carga de datos Ubicacion Geografica
@@ -1046,7 +1057,6 @@ const CompFormpres = () => {
   //Mostrar los cantones por provincia
   const getCants = async (v) => {
     const val = v?.target.value;
-    console.log("getCant", val);
     if (val != null) {
       setdeshabCant(false);
 
@@ -1099,8 +1109,7 @@ const CompFormpres = () => {
   //Mostrar los cantones por provincia
   const getAsuntConsultado = async (v) => {
     const val = v?.target.value;
-
-    console.log(val)
+    
     if (val != null) {
       setdeshabAConsultado(false);
 
@@ -1109,7 +1118,6 @@ const CompFormpres = () => {
       setubMat(Materia);
       setidMat(val);
 
-      console.log(index, Materia)
       const res = await axios.get(URI + "asu/" + val);
       setAsunto(res.data);
       //getBienes();
@@ -1121,8 +1129,8 @@ const CompFormpres = () => {
 
   //Mostrar los distritos por canton
   const getBienes = async (v) => {
-    let index = v.target.selectedIndex;
-    let asun = v.target.options[ index ].text;
+    let index = v?.target.selectedIndex;
+    let asun = v?.target.options[ index ].text;
     setubAsu(asun);
     setidAsu(asun);
 
@@ -1235,7 +1243,6 @@ const CompFormpres = () => {
             setapell2C("NO INDICA");
             setapell1C("");
             setRsocial(nombreC);
-            console.log(rsocial, nfantasy, '1')
           } else if (
             Comer?.fantasy_name != "NULL" ||
             Comer?.fantasy_name != null ||
@@ -1252,7 +1259,6 @@ const CompFormpres = () => {
             setapell1C(nombreF);
             setRsocial(nombC);
             setNfantasy(apell1C);
-            console.log(rsocial, nfantasy, '2')
           } else if (
             (Comer?.fantasy_name == "NULL" ||
               Comer?.fantasy_name == null ||
@@ -1270,7 +1276,6 @@ const CompFormpres = () => {
             setapell1C(nombreF);
             setRsocial(nombC);
             setNfantasy(apell1C);
-            console.log(rsocial, nfantasy, '3')
           }
         } else if (ub == 2 && selectNidC == 1) {
           cargarDatosP(val, ub);

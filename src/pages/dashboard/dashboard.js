@@ -103,32 +103,32 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <br/>
-        <br/>
-      <br/>
-      <br/>
-        <br/>
-      <br/>
-      <br/>
-        <br/>
-      <br/>
-      <br/>
-        <br/>
-      <br/>
-      <div className="container-fluid position-fixed pt-5 mt-5 top-50 start-50 translate-middle table-bordered border-primary rounded">
-        <div className="d-flex flex-row mb-1">
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <div className="container-fluid position-fixed pt-5 mt-5 top-50 start-50 translate-middle table-bordered">
+        <div className="d-flex flex-row mb-1 ms-2">
           <ReactHTMLTableToExcel
-          id="test-table-xls-button"
-          className="btn btn-success me-1"
-          table="RepoSoliPres"
-          filename="Reporte General"
-          sheet="Solicitud Presencial de Asesorias"
-          buttonText="Exportar datos a Excel"
-        />
+            id="test-table-xls-button"
+            className="btn btn-success me-1"
+            table="RepoSoliPres"
+            filename="Reporte General"
+            sheet="Solicitud Presencial de Asesorias"
+            buttonText="Exportar datos a Excel"
+          />
           <button className="d-none btn btn-success me-1">Exportar datos a PDF</button>
           <button className="d-none btn btn-success">Exportar datos a CSV</button>
         </div>
-        <table id="RepoSoliPres" data-excel-name="Reportes Solicitud Presencial Asesoria" className="table table-dark table-striped caption-top badge text-nowrap table-bordered border-primary rounded overflow-x-scroll">
+        <table id="RepoSoliPres" className="table table-dark table-striped caption-top badge text-nowrap table-bordered border-primary overflow-auto">
           <caption>Reportes solicitud de asesoria presencial</caption>
           <thead>
             <tr>
@@ -198,7 +198,7 @@ function Dashboard() {
             )}
           </tbody>
         </table>
-        <nav aria-label="...">
+        <nav className="d-none" aria-label="...">
           <ul className="pagination">
             <li className="page-item disabled">
               <a className="page-link">Previous</a>
