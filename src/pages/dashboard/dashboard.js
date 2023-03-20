@@ -23,6 +23,9 @@ function Dashboard() {
     }
   }
 
+
+  const [ dreportes, setDReportes ] = useState([])
+  const [ freportes, setFReportes ] = useState([])
   const [ reportes, setReportes ] = useState([])
   useEffect(() => {
     getReportes()
@@ -31,13 +34,380 @@ function Dashboard() {
   const getReportes = async () => {
     const res = await axios.get(URI)
     const report = res.data
+    
     setReportes(report)
+    setDReportes(report)
+  }
+
+  const bscNReport = (e) => {
+    console.log(e)
+    if (e) {
+      const filt = dreportes.filter(reporte => reporte.id_report == e.target.value)
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscAgent = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.id_agente.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscFchCreado = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.fchareg.includes(e.target.value))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscStatus = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.status.toLowerCase().include(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscOrigenr = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.origen_r.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscUsuarios = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.usuario_s.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscUsObser = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.us_obser.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscTdia = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.tdia.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscNdia = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.ndia.includes(e.target.value))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscNombA = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.nomba.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscApell1A = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.apell1a.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscApell2A = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.apell2a.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscEmail1 = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.email.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscEmail2 = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.email2.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscTel1= (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.tel.includes(e.target.value))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscTel2 = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.tel2.includes(e.target.value))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscProv = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.provi.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscCanto = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.canto.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscDistr = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.distr.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscMateria = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.materia.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscAsuntot = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.asunto.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscBien = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.bien.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscTdiC = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.tdic.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscNdiCt = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.ndic.includes(e.target.value))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscRSocial = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.razon_social.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscNFantacy = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.nombre_fantasia.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscDesch = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.desch.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
+  }
+
+  const bscRespe = (e) => {
+    if (e !== '') {
+      const filt = dreportes.filter((reporte) => reporte.respe.toLowerCase().includes(e.target.value.toLowerCase()))
+      console.log(filt)
+      if (filt !== null) {
+        setReportes(filt)
+      }
+    }
+    else {
+      setReportes(dreportes)
+    }
   }
 
   return (
     <>
       <nav className="navbar bg-body-white fixed-top position-relative shadow">
-        <div className="container-fluid">
+        <div className="container">
           <img
             src={meicimg}
             alt="MEIC"
@@ -45,7 +415,7 @@ function Dashboard() {
             height="55"
             className="d-flex justify-content-start"
           />
-          <p className="fs-2 fw-bolder text-center clrTitle">GESTION DE REPORTES MEIC</p>
+          <p className="fs-2 fw-bolder text-center clrTitle">LISTADO DE FORMULARIOS MEIC</p>
           <p className="mt-5 text-secondary d-flex flex-row-reverse">
             Agente: {agente}
           </p>
@@ -75,7 +445,17 @@ function Dashboard() {
                     id="btnenviar"
                     className="nav-link"
                     aria-current="page">
-                    Reportes Solicitud asesoria Presencial
+                    Formularios de Asesoria
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
+                    href={"/stadistic"}
+                    id="btnenviar"
+                    type="button"
+                    className="nav-link"
+                    aria-current="page">
+                    Estadisticas
                   </a>
                 </li>
                 <li className="nav-item">
@@ -98,8 +478,17 @@ function Dashboard() {
       <div className="d-none container-fluid my-3">
         <div className="row">
           <label>Filtros</label>
-          <div className="col">
-            <input type="date" />
+          <br />
+          <div className="col-2">
+            <label htmlFor="fcini">Fecha Inicial</label>
+            <input id="fcini" type="date" />
+          </div>
+          <div className="col-2">
+            <label htmlFor="fcfin">Fecha Final</label>
+            <input id="fcfin" type="date" />
+          </div>
+          <div className="col-2 align-bottom">
+            <button className="btn btn-primary" type="button">Aplicar Filtro</button>
           </div>
         </div>
       </div>
@@ -107,15 +496,7 @@ function Dashboard() {
       <br />
       <br />
       <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <div className="container-fluid position-fixed pt-5 mt-5 top-50 start-50 translate-middle table-bordered">
+      <div className="container-fluid position-absolute start-0 w-auto p-3 table-bordered">
         <div className="d-flex flex-row mb-1 ms-2">
           <ReactHTMLTableToExcel
             id="test-table-xls-button"
@@ -158,11 +539,41 @@ function Dashboard() {
               <th scope="col">N. Ident. Comerciante</th>
               <th scope="col">Razon Social/Nombre Comerciante</th>
               <th scope="col">Nombre Fantasía</th>
-              <th scope="col">Descripción del caso</th>
+              <th scope="col">Descripción del caso</th> 
               <th scope="col">Respuesta Enviada</th>
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td><input id="buscar" onKeyUp={(e) => bscNReport(e)} /></td>
+              <td><input id="buscar" onKeyUp={(e) => bscAgent(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscFchCreado(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscStatus(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscOrigenr(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscUsuarios(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscUsObser(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscTdia(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscNdia(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscNombA(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscApell1A(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscApell2A(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscEmail1(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscEmail2(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscTel1(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscTel2(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscProv(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscCanto(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscDistr(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscMateria(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscAsuntot(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscBien(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscTdiC(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscNdiCt(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscRSocial(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscNFantacy(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscDesch(e)}/></td>
+              <td><input id="buscar" onKeyUp={(e) => bscRespe(e)}/></td>
+            </tr>
             {reportes.map((reportes) => (
               <tr key={reportes.id}>
                 <th scope="row">{reportes.id_report}</th>

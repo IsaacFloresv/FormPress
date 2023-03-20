@@ -30,7 +30,7 @@ const CerrarSession = () => {
             height="55"
             className="d-flex justify-content-start"
           />
-          <p class="fs-2 fw-bolder text-center clrTitle">SOLICITUD ASESORIA PRESENCIAL</p>
+          <p class="fs-2 fw-bolder text-center clrTitle">SOLICITUD ASESORIA</p>
           <p className="mt-5 text-secondary d-flex flex-row-reverse">
                 Agente: {agente}
               </p>
@@ -61,7 +61,17 @@ const CerrarSession = () => {
                     type="button"
                     className="nav-link"
                     aria-current="page">
-                    Vista General
+                    Listado de Formularios de Asesoria
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
+                    href={"/stadistic"}
+                    id="btnenviar"
+                    type="button"
+                    className="nav-link"
+                    aria-current="page">
+                    Estadisticas
                   </a>
                 </li>
                 <li class="nav-item">

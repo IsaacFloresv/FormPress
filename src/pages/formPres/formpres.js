@@ -38,13 +38,16 @@ const CompFormpres = () => {
     const rmay = ++data
     const may = rmay
 
-    if (v === 2) { setidNR(data) }
+
+    if (v === 2) {
+      setidNR(data)
+    }
 
     setnRegistro(may)
+    console.log(data, may)
   };
 
   const EnviarDatos = async () => {
-    NextRegister(2)
     alert("Se procede a guardar los datos");
     var nagente = cookies.get('info')
     let headersList = {
@@ -91,16 +94,16 @@ const CompFormpres = () => {
     });
     console.log(bodyContent)
     let response = await fetch(
-       "https://fwmback-production.up.railway.app/asepress",
-       {
-         method: "POST",
-         body: bodyContent,
-         headers: headersList,
-       }
-     );
- 
-     let data = await response.text();
-     alert("Registro Creado Correctamente....");
+      "https://fwmback-production.up.railway.app/asepress",
+      {
+        method: "POST",
+        body: bodyContent,
+        headers: headersList,
+      }
+    );
+
+    let data = await response.text();
+    alert("Registro Creado Correctamente....");
   };
 
   //Validacion de formulario antes de enviar correo
@@ -123,12 +126,12 @@ const CompFormpres = () => {
         (tel2 != "" && tel2 != " ") &&
         (fchaHech != "" && fchaHech != " ") &&
         (fchaGar != "" && fchaGar != " ") &&
-        (prov != false ) &&
-        (cant != false ) &&
-        (distr != false ) &&
-        (ubMat != '' ) &&
-        (ubAsu != '' ) &&
-        (ubBie != '' ) &&
+        (prov != false) &&
+        (cant != false) &&
+        (distr != false) &&
+        (ubMat != '') &&
+        (ubAsu != '') &&
+        (ubBie != '') &&
         (tdiC != null && tdiC != " ") &&
         (ndiC != null && ndiC != " ") &&
         (nombC != "" && nombC != " ") &&
@@ -202,9 +205,9 @@ const CompFormpres = () => {
   const [ nombA, setnombA ] = useState("");
   const [ apell1A, setapell1A ] = useState("");
   const [ apell2A, setapell2A ] = useState("");
-  const [ tel, setTel ] = useState();
+  const [ tel, setTel ] = useState('');
   const [ tel2, setTel2 ] = useState("0000-0000");
-  const [ email, setEmail ] = useState();
+  const [ email, setEmail ] = useState('');
   const [ email2, setEmail2 ] = useState("NO INDICA");
   const [ fchaHech, setfchaHech ] = useState("NO INDICA");
   const [ fchaGar, setfchaGar ] = useState("NO INDICA");
@@ -474,6 +477,7 @@ const CompFormpres = () => {
         setinvisibleAp1C("d-block col-md-4");
         setinvisibleAp2C("d-block col-md-4");
         setlblPHNombFantacyC("");
+        limpiardatosC()
         break;
 
       case 2:
@@ -486,6 +490,7 @@ const CompFormpres = () => {
         setclassdivnombC("col-md-4");
         setclassdivDNIC("col-md-4 d-block");
         setlblPHNombFantacyC("");
+        limpiardatosC()
         break;
 
       case 3:
@@ -496,6 +501,8 @@ const CompFormpres = () => {
         setinvisibleAp2C("d-none col-md-1");
         setapell1C("Desconocido");
         setapell2C("Desconocido");
+        setnombC('')
+        setndiC('')
         setclassdivnombC("col-md-5");
         setclassdivDNIC("col-md-3 d-block");
         setlblPHNombFantacyC(
@@ -513,6 +520,7 @@ const CompFormpres = () => {
         setclassdivnombC("col-md-4");
         setclassdivDNIC("col-md-4 d-block");
         setlblPHNombFantacyC("");
+        limpiardatosC()
         break;
 
       case 5:
@@ -523,6 +531,7 @@ const CompFormpres = () => {
         setndiC("0000000000");
         setapell1C("Desconocido");
         setapell2C("Desconocido");
+        setNfantasy("NO INDICA")
         setinvisibleAp1C("d-none col-md-2");
         setinvisibleAp2C("d-none col-md-2");
         setclassdivnombC("col-md-8");
@@ -786,6 +795,7 @@ const CompFormpres = () => {
       const valor = val;
       const Ced = ced === 2 ? ndiA : ced;
       setnombC(valor);
+      setRsocial(valor)
       if (valor.toString().length >= 1) {
         if (ced === 2) {
           const resp = validarText(valor);
@@ -838,17 +848,17 @@ const CompFormpres = () => {
       } else {
         setnClValidC("is-invalid");
       }
-    }else if (lblinputNameC == "Nombre de Fantasía (Opcional)" && tdiC === 'NO INDICA') {
+    } else if (lblinputNameC == "Nombre de Fantasía (Opcional)" && tdiC === 'NO INDICA') {
       const valor = val;
       setnombC(valor);
       setRsocial(valor)
       if (valor.toString().length >= 1) {
-          const resp = validarTextEsp(valor);
-          if (resp) {            
-            setnClValidC("is-valid");
-          } else {
-            setnClValidC("is-invalid");
-          }
+        const resp = validarTextEsp(valor);
+        if (resp) {
+          setnClValidC("is-valid");
+        } else {
+          setnClValidC("is-invalid");
+        }
       } else {
         setnClValidC("is-invalid");
       }
@@ -858,7 +868,7 @@ const CompFormpres = () => {
   const ValidarinputApp1C = (val) => {
     const valor = val;
     setapell1C(valor);
-    setNfantasy(apell1C);
+    setNfantasy(valor);
     if (lblapell1C != "Nombre de Fantasía (Opcional)") {
       if (val.toString().length >= 1) {
         const resp = validarText(val);
@@ -1109,7 +1119,7 @@ const CompFormpres = () => {
   //Mostrar los cantones por provincia
   const getAsuntConsultado = async (v) => {
     const val = v?.target.value;
-    
+
     if (val != null) {
       setdeshabAConsultado(false);
 
@@ -1127,13 +1137,18 @@ const CompFormpres = () => {
     }
   };
 
-  //Mostrar los distritos por canton
-  const getBienes = async (v) => {
-    let index = v?.target.selectedIndex;
-    let asun = v?.target.options[ index ].text;
-    setubAsu(asun);
-    setidAsu(asun);
+  const defAsunto = async (v) => {
+    const val = v?.target.value;
+    if (val != null) {
+      let index = v?.target.selectedIndex;
+      let asun = v?.target.options[ index ].text;
+      setubAsu(asun);
+      setidAsu(asun);
+    }
+  };
 
+  //Mostrar los distritos por canton
+  const getBienes = async (v) => {  
     const res = await axios.get(URI + "bie/");
     setBien(res.data);
     setdeshabBien(false);
@@ -1142,6 +1157,7 @@ const CompFormpres = () => {
   const defbien = (v) => {
     if (v.label != null) {
       const val = v.label;
+      console.log(val)
       setubBie(val);
       setidBie(v.value);
     }
@@ -1180,11 +1196,13 @@ const CompFormpres = () => {
   };
 
   const cargarDatosC = async (val, ub) => {
+    console.log(val, ub)
     await fetch(URI + "comer/" + val)
       .then((resp) => resp.json())
       .then((data) => {
         const Comer = data[ 0 ];
         setComer(Comer);
+        console.log(Comer)
         if (ub == 1 && selectNidA == 3) {
           if (
             Comer?.fantasy_name == "NULL" ||
@@ -1227,6 +1245,7 @@ const CompFormpres = () => {
             setapell1A(nombreF);
           }
         } else if (ub == 2 && selectNidC == 3) {
+          console.log(Comer, 2, 3)
           if (
             Comer?.fantasy_name == "NULL" ||
             Comer?.fantasy_name == null ||
@@ -1559,7 +1578,7 @@ const CompFormpres = () => {
               className={`form-control ${emclValid2}`}
               id="inputEmail2"
               value={email2}
-              required              
+              required
               disabled={dehabilem2}
               onChange={(e) => validarInputEmail(e.target.value, 2)}
             />
@@ -1746,7 +1765,7 @@ const CompFormpres = () => {
               id="selectAsuntoConsultado"
               className="form-select"
               disabled={deshabAConsultado}
-              onChange={(e) => getBienes(e)}
+              onChange={(e) => defAsunto(e)}
               defaultValue={idAsu}
               required>
               <option
@@ -1781,7 +1800,7 @@ const CompFormpres = () => {
               options={bien.map((bien) => ({
                 label: bien.desc_bien,
                 value: bien.id,
-              }))}             
+              }))}
             />
           </div>
         </div>

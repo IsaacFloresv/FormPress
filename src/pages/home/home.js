@@ -75,7 +75,27 @@ function Home() {
                     type="button"
                     className="nav-link"
                     aria-current="page">
-                    Reportes Solicitud asesoria Presencial
+                    Formulario Solicitud Asesoria
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a
+                    href={"/dashboard"}
+                    id="btnenviar"
+                    type="button"
+                    className="nav-link"
+                    aria-current="page">
+                    Listado de Formularios de Asesoria
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
+                    href={"/stadistic"}
+                    id="btnenviar"
+                    type="button"
+                    className="nav-link"
+                    aria-current="page">
+                    Estadisticas
                   </a>
                 </li>
                 <li className="nav-item">
