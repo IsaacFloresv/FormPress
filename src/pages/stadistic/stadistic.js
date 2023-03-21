@@ -169,17 +169,41 @@ function Stadistic() {
         }
     }
 
+    const ResetTable = () => {
+        setReportes(dreportes)
+    }
+
+    const MayorFcha = (e) => {
+        var info = e.split('-')
+        let fech = info[2] + '/' + info[1] + '/' + info[0]
+
+        let mayores = reportes.filter(n => Date.parse(n.fchareg.substring(0, 8)) >= Date.parse(fech))
+        console.log(mayores, reportes[15].fchareg.substring(0, 8), fech)
+        setReportes(dreportes)
+        setFReportes(mayores)
+        console.log(freportes)
+    }
+
+    const MenorFcha = (e) => {
+        var info = e.split('-')
+        let fech = info[2] + '/' + info[1] + '/' + info[0]
+
+        let mayores = reportes.filter(n => Date.parse(n.fchareg.substring(0, 8)) <= Date.parse(fech))
+        console.log(mayores, reportes[15].fchareg.substring(0, 8), fech)
+        setReportes(dreportes)
+        setFReportes(mayores)
+        console.log(freportes)
+    }
+
     const bscNReport = (e) => {
-        console.log(e)
-        if (e) {
-            const filt = dreportes.filter(reporte => reporte.id_report == e.target.value)
+        console.log(e.target.value)
+        if (e.target.value !== '') {
+            const filt = dreportes.filter((reporte) => (reporte.id_report).toString().includes(e.target.value))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -188,24 +212,20 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.id_agente.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)                
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
     const bscFchCreado = (e) => {
         if (e !== '') {
-            const filt = dreportes.filter((reporte) => reporte.fchareg.includes((reporte.fchareg > fini && reporte < fend)))
+            const filt = dreportes.filter((reporte) => reporte.fchareg.includes(e.target.value))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -214,11 +234,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.status.toLowerCase().include(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -227,11 +245,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.origen_r.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -240,11 +256,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.usuario_s.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -253,11 +267,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.us_obser.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -266,11 +278,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.tdia.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -279,11 +289,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.ndia.includes(e.target.value))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -292,11 +300,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.nomba.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -305,11 +311,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.apell1a.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -318,11 +322,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.apell2a.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -331,11 +333,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.email.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -344,11 +344,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.email2.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -357,11 +355,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.tel.includes(e.target.value))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -370,11 +366,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.tel2.includes(e.target.value))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -383,11 +377,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.provi.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -396,11 +388,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.canto.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -409,11 +399,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.distr.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -422,11 +410,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.materia.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -435,11 +421,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.asunto.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -448,11 +432,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.bien.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -461,11 +443,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.tdic.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -474,11 +454,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.ndic.includes(e.target.value))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -487,11 +465,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.razon_social.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -500,11 +476,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.nombre_fantasia.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -513,11 +487,9 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.desch.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
-        }
-        else {
-            setReportes(dreportes)
         }
     }
 
@@ -526,18 +498,10 @@ function Stadistic() {
             const filt = dreportes.filter((reporte) => reporte.respe.toLowerCase().includes(e.target.value.toLowerCase()))
             console.log(filt)
             if (filt !== null) {
-                setReportes(filt)
+                setFReportes(filt)
+                setReportes(freportes)
             }
         }
-        else {
-            setReportes(dreportes)
-        }
-    }
-
-    const estFecha = (e, ub) => {
-        let fecha = e
-        let dfecha = fecha.format("DD/MM/YYYY")
-        if (ub === 1) { setFini(dfecha) } else { setFend(dfecha) }
     }
 
     return (
@@ -608,14 +572,11 @@ function Stadistic() {
                 <br />
                 <div className="col-md-4">
                     <label htmlFor="fcini">Fecha Inicial</label>
-                    <input id="fcini" type="date" value={fini} onChange={(e) => estFecha(e.target.value, 1)} />
+                    <input id="fcini" type="date" value={fini} onChange={(e) => MayorFcha(e.target.value)} />
                 </div>
                 <div className="col-md-4">
                     <label htmlFor="fcfin">Fecha Final</label>
-                    <input id="fcfin" type="date" value={fend} onChange={(e) => estFecha(e.target.value, 2)} />
-                </div>
-                <div className="col-4 align-bottom">
-                    <button className="btn btn-primary" type="button" onClick={() => bscFchCreado()}>Aplicar Filtro</button>
+                    <input id="fcfin" type="date" value={fend} onChange={(e) => MenorFcha(e.target.value)} />
                 </div>
             </div>
             <div className="row">
@@ -774,6 +735,7 @@ function Stadistic() {
                 <div>
                     <div>
                         <div className="container-fluid position-absolute start-0 w-auto p-3 table-bordered">
+                            <button className="btn btn-danger" onClick={() => ResetTable()}>Restrablecer Tabla</button>
                             <table id="RepoSoliPres" className="table table-dark table-striped caption-top badge text-nowrap table-bordered border-primary overflow-auto">
                                 <caption>Reportes solicitud de asesoria presencial</caption>
                                 <thead>
@@ -809,7 +771,7 @@ function Stadistic() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className="d-none">
+                                    <tr>
                                         <td><input id="buscar" onKeyUp={(e) => bscNReport(e)} /></td>
                                         <td><input id="buscar" onKeyUp={(e) => bscAgent(e)} /></td>
                                         <td><input id="buscar" onKeyUp={(e) => bscFchCreado(e)} /></td>

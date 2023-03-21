@@ -42,7 +42,7 @@ function Dashboard() {
   const bscNReport = (e) => {
     console.log(e)
     if (e) {
-      const filt = dreportes.filter(reporte => reporte.id_report == e.target.value)
+      const filt = dreportes.filter((reporte) => (reporte.id_report).toString().includes(e.target.value))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
