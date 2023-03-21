@@ -245,6 +245,8 @@ const CompFormpres = () => {
   const [ deshabCant, setdeshabCant ] = useState(true);
   const [ deshabDist, setdeshabDist ] = useState(true);
   const [ dehabilndiC, setdehabilndiC ] = useState(false);
+  const [ deshabIdAudio, setdehabIdAudio ] = useState("d-none col-md-3");
+  const [ deshabIdCorreo, setdehabIdCorreo ] = useState("d-none col-md-3");
   const [ dehabilnombC, setdehabilnombC ] = useState(false);
   const [ dehabilapell1C, setdehabilapell1C ] = useState(false);
   const [ dehabilapell2C, setdehabilapell2C ] = useState(false);
@@ -374,14 +376,27 @@ const CompFormpres = () => {
     switch (valor) {
       case 0:
         setHiddentelorig("d-none");
+        setdehabIdCorreo("d-none")
+        setdehabIdAudio("d-none")
+        setIdcorreo("NO INDICA")
+        setIdaudio("NO INDICA")
         break;
 
       case 1:
         setHiddentelorig("d-block col-md-3");
+        setdehabIdAudio("d-block col-md-3")
+        settoRegistro('')
+        setIdaudio('')
+        setIdcorreo("NO INDICA")
+        setdehabIdCorreo("d-none")
         break;
 
       case 2:
         setHiddentelorig("d-none");
+        setdehabIdAudio("d-none")
+        setdehabIdCorreo("d-block col-md-3")
+        setIdcorreo("")
+        setIdaudio("NO INDICA")
         break;
     }
   };
@@ -1379,24 +1394,38 @@ const CompFormpres = () => {
               />
               <span id="errorCed" className="fs-6"></span>
             </div>
-            <div id="divinputtoRegistro" className="d-none col-md-3">
-              <label htmlFor="toRegistro" className="form-label">
-                Agente:
+            <div id="divinputtIdAudio" className={deshabIdAudio}>
+              <label htmlFor="idAudio" className="form-label">
+                Audio Origen
               </label>
               <input
-                name="toRegistro"
+                name="idAudio"
                 type="text"
                 className={`form-control`}
-                id="inputtoRegistro"
-                defaultValue={agente}
+                id="inputidaudio"
+                value={idaudio}
                 onChange={(e) => {
-                  setAgente(e.target.value);
-                  NextRegister(1)
+                  setIdaudio(e.target.value);
                 }}
                 required
               />
             </div>
-
+            <div id="divinputtIdCorreo" className={deshabIdCorreo}>
+              <label htmlFor="idcorreo" className="form-label">
+                Correo Origen
+              </label>
+              <input
+                name="idcorreo"
+                type="text"
+                className={`form-control`}
+                id="inputidcorreo"
+                value={idcorreo}
+                onChange={(e) => {
+                  setIdcorreo(e.target.value);
+                }}
+                required
+              />
+            </div>
             <div className="col-md-3">
               <label htmlFor="userEspe" className="form-label">
                 Usuario especial:
