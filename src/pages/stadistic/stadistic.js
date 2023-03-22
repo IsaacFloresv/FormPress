@@ -17,6 +17,8 @@ const meicimg = "logo_meic.jpg";
 const alegaimg = "logo.png";
 const URI = "https://fwmback-production.up.railway.app/asepress";
 
+var elme
+
 
 
 function Stadistic() {
@@ -28,6 +30,10 @@ function Stadistic() {
 
     const [ dreportes, setDReportes ] = useState([])
     const [ freportes, setFReportes ] = useState([])
+
+    const [ dato1, setDato1 ] = useState();
+    const [ dato2, setDato2 ] = useState();
+    const [ dato3, setDato3 ] = useState();
 
 
     const [ idAsu, setidAsu ] = useState();
@@ -41,11 +47,15 @@ function Stadistic() {
 
 
     const [ fini, setFini ] = useState();
+    const [ top, setTop ] = useState();
     const [ fend, setFend ] = useState();
     const [ title, setTitle ] = useState('Gráfico');
     const [ deshaBar, setdeshaBar ] = useState('d-none');
     const [ deshaLine, setdeshaLine ] = useState('d-none');
     const [ deshaPie, setdeshaPie ] = useState('d-none');
+    const [ deshabTxtTop, setDeshabTxtTop ] = useState('d-none');    
+    const [ destabla, setDesTabla ] = useState('d-none');
+    const [ txtTop, setTxtTop ] = useState('');
 
     const CerrarSession = () => {
         const respuesta = confirm("¿Desea salir?")
@@ -66,76 +76,184 @@ function Stadistic() {
         return unicos;
     }
 
-    const getMaterias = async () => {
-        const res = await axios.get(URI + "/mat");
-        setMateria(res.data);
-    };
-
-    let TtCasos = 0
-    let Agente = []
-    let result = []
-    let ragente = {
-        agent: ''
-    }
-    let rxagente = {
-        agent: '',
-        treport: 0,
-    }
-    let trxagent = {}
     const getReportes = async () => {
         const res = await axios.get(URI)
         const report = res.data
 
         setReportes(report)
         setDReportes(report)
+    }
 
-        reportes.map((reportes) => {
-            TtCasos += reportes.status == "Activo" ? 1 : 0
-        })
-
-        reportes.forEach(function (item) {
-            Agente.push(item.id_agente);
-        })
-
-        result = Agente.unicos()
-
-        result.map((elemento) => [
-            ragente.agent = result
-        ])
-
-        /*reportes.map((reportes)=>{
-            ragente.map((elemto)=>{
-            if(reportes.id_agente == ragente.agent){
-            rxagente.treport = rxagente.treport + 1
-            rxagente.agent = ragente.agent}})
+    const contador = async () => {
+        VerTabla()
+        let headersList = {
+            "Accept": "*/*",
+            //"User-Agent": "Thunder Client (https://www.thunderclient.com)",
+            "Content-Type": "application/json"
         }
-        )*/
+        
+        let bodyContent = JSON.stringify({
+            "elemt": `${elme}`,
+            "top": dato2,
+            "opc": dato3
+        });
 
-        let repeticiones = {};
-        for (let i = 0; i < reportes.length; i++) {
-            let valor = reportes[ i ].id_agente;
-            rxagente.agent = valor
-            if (repeticiones[ valor ]) {
-                rxagente.treport = repeticiones[ valor ] += 1
-                trxagent = { ...rxagente }
-
-            } else {
-                rxagente.treport = repeticiones[ valor ] = 1;
-                trxagent = { ...rxagente }
-            }
+        let reqOptions = {
+            url: "http://127.0.0.1:4002/topelemt",
+            method: "PUT",
+            headers: headersList,
+            data: bodyContent,
         }
+        console.log(bodyContent)
+        let response = await axios.request(reqOptions);
+        console.log(response.data[ 0 ])
 
+        setTop(response.data[ 0 ])
 
+        setUserData({
+            labels: top?.map((data) => data.elemt),
+            datasets: [
+                {
+                    label: `${title}`,
+                    data: top?.map((data) => data.total),
+                    backgroundColor: [
+                        "rgba(75,192,192,1)",
+                        "#ecf0f1",
+                        "#50AF95",
+                        "#f3ba2f",
+                        "#2a71d0",
+                    ],
+                    borderColor: "black",
+                    borderWidth: 2,
+                },
+            ],
+        });
+    }
 
-        console.log(trxagent)
+    const selectTop = (e) => {
+        let valor = e.target.selectedIndex;
+        let oreg = e.target.options[ valor ].text;
+        console.log(valor)
+        setDato3("1")
+        if (valor === 1) {
+            setDato2("10")
+            setDeshabTxtTop("d-none")
+            setTxtTop("")
+        } if (valor === 2) {
+            setDato2("20")
+            setDeshabTxtTop("d-none")
+            setTxtTop("")
+        } if (valor === 3) {
+            setDato2("30")
+            setDeshabTxtTop("d-none")
+            setTxtTop("")
+        } if (valor === 4) {
+            setDato2("") |
+                setDeshabTxtTop("d-none")
+            setTxtTop("")
+        } if (valor === 5) {
+            setDato2("")
+            setDeshabTxtTop("d-block col-md-4")
+            setTxtTop("")
+        }
+        console.log(valor, oreg)
+        contador()
+    }
+
+    const selectElem = (e) => {
+        let valor = e.target.selectedIndex;
+        let elment = ""
+        if (valor === 1) {
+            elment = "materia"
+            setDato1(elment)
+            elme = elment            
+        } if (valor === 2) {
+            elment = "asunto"
+            setDato1(elment)
+            elme = elment
+        } if (valor === 3) {
+            elment = "bien"
+            setDato1(elment)
+            elme = elment
+        } if (valor === 4) {
+            elment = "provi"
+            setDato1(elment)
+            elme = elment
+        } if (valor === 5) {
+            elment = "canto"
+            setDato1(elment)
+            elme = elment
+        } if (valor === 6) {
+            elment = "distr"
+            setDato1(elment)
+            elme = elment
+        } if (valor === 7) {
+            elment = "tdia"
+            setDato1(elment)
+            elme = elment
+        } if (valor === 8) {
+            elment = "tdic"
+            setDato1(elment)
+            elme = elment
+        } if (valor === 9) {
+            elment = "ndia"
+            setDato1(elment)
+            elme = elment
+        } if (valor === 10) {
+            elment = "ndic"
+            setDato1(elment)
+            elme = elment
+        } if (valor === 11) {
+            elment = "id_agente"
+            setDato1(elment)
+            elme = elment
+        } if (valor === 12) {
+            elment = "origen_r"
+            setDato1(elment)
+            elme = elment
+        } if (valor === 13) {
+            elment = "status"
+            setDato1(elment)
+            elme = elment
+        } if (valor === 14) {
+            elment = "r_social"
+            setDato1(elment)
+            elme = elment
+        } if (valor === 15) {
+            elment = "nombre_fantasia"
+            setDato1(elment)
+            elme = elment
+        } if (valor === 16) {
+            elment = "fchareg"
+            setDato1(elment)
+            elme = elment
+        } if (valor === 17) {
+            elment = "fchacomplet"
+            setDato1(elment)
+            elme = elment
+        } if (valor === 18) {
+            elment = "usuario_s"
+            setDato1(elment)
+            elme = elment
+        }
+        contador()
+    }
+
+    const validarTxtTop = (e) => {
+        const resp = /^[0-9]{9}$/.test(e);
+        console.log(e, resp)
+        if (resp) {
+            setDato1(e)
+            setTxtTop(e)
+        }
     }
 
     const [ userData, setUserData ] = useState({
-        labels: UserData.map((data) => data.agente),
+        labels: top?.map((data) => data.elemt),
         datasets: [
             {
                 label: `${title}`,
-                data: UserData.map((data) => data.treport),
+                data: top?.map((data) => data.total),
                 backgroundColor: [
                     "rgba(75,192,192,1)",
                     "#ecf0f1",
@@ -173,12 +291,18 @@ function Stadistic() {
         setReportes(dreportes)
     }
 
+    const VerTabla = () =>{
+        console.log(dato1)
+        setDesTabla('container-fluid position-absolute start-0 w-auto p-3 table-bordered');
+    }
+
+    //#region Filtros Tabla
     const MayorFcha = (e) => {
         var info = e.split('-')
-        let fech = info[2] + '/' + info[1] + '/' + info[0]
+        let fech = info[ 2 ] + '/' + info[ 1 ] + '/' + info[ 0 ]
 
         let mayores = reportes.filter(n => Date.parse(n.fchareg.substring(0, 8)) >= Date.parse(fech))
-        console.log(mayores, reportes[15].fchareg.substring(0, 8), fech)
+        console.log(mayores, reportes[ 15 ].fchareg.substring(0, 8), fech)
         setReportes(dreportes)
         setFReportes(mayores)
         console.log(freportes)
@@ -186,10 +310,10 @@ function Stadistic() {
 
     const MenorFcha = (e) => {
         var info = e.split('-')
-        let fech = info[2] + '/' + info[1] + '/' + info[0]
+        let fech = info[ 2 ] + '/' + info[ 1 ] + '/' + info[ 0 ]
 
         let mayores = reportes.filter(n => Date.parse(n.fchareg.substring(0, 8)) <= Date.parse(fech))
-        console.log(mayores, reportes[15].fchareg.substring(0, 8), fech)
+        console.log(mayores, reportes[ 15 ].fchareg.substring(0, 8), fech)
         setReportes(dreportes)
         setFReportes(mayores)
         console.log(freportes)
@@ -213,7 +337,7 @@ function Stadistic() {
             console.log(filt)
             if (filt !== null) {
                 setFReportes(filt)
-                setReportes(freportes)                
+                setReportes(freportes)
             }
         }
     }
@@ -503,6 +627,7 @@ function Stadistic() {
             }
         }
     }
+    //#endregion
 
     return (
         <>
@@ -567,36 +692,76 @@ function Stadistic() {
             </nav>
             <br />
             <br />
-            <div className="row">
-                <label>Filtros</label>
+            <div className="row py-2">
+                <h3>Definición de gráficos y tablas</h3>
                 <br />
                 <div className="col-md-4">
-                    <label htmlFor="fcini">Fecha Inicial</label>
-                    <input id="fcini" type="date" value={fini} onChange={(e) => MayorFcha(e.target.value)} />
+                    <label htmlFor="fcini" className="form-label">Fecha Inicial</label>
+                    <input className="form-control" id="fcini" type="date" value={fini} onChange={(e) => MayorFcha(e.target.value)} />
                 </div>
                 <div className="col-md-4">
-                    <label htmlFor="fcfin">Fecha Final</label>
-                    <input id="fcfin" type="date" value={fend} onChange={(e) => MenorFcha(e.target.value)} />
+                    <label htmlFor="fcfin" className="form-label">Fecha Final</label>
+                    <input className="form-control" id="fcfin" type="date" value={fend} onChange={(e) => MenorFcha(e.target.value)} />
                 </div>
             </div>
             <div className="row">
                 <div className="col-md-4">
                     <label htmlFor="input_TID" className="form-label">
-                        Filtros Comunes
+                        Elemento a Evaluar
                     </label>
                     <select
                         id="input_TID"
                         className="form-select"
                         name="tid"
-                        required>
+                        onChange={(e) => selectElem(e)}>
                         <option value="0"
                             selected="selected" disabled>
                             Seleccione...
                         </option>
-                        <option defaultValue="1">Top 10 Materias</option>
-                        <option defaultValue="2">Top 10 Asuntos Consultados</option>
-                        <option defaultValue="3">Top 10 Bienes</option>
+                        <option defaultValue="1">Materias</option>
+                        <option defaultValue="2">Asuntos Consultados</option>
+                        <option defaultValue="3">Bienes</option>
+                        <option defaultValue="4">Provincia</option>
+                        <option defaultValue="5">Canton</option>
+                        <option defaultValue="6">Distrito</option>
+                        <option defaultValue="7">Tipo de identificación Usuario</option>
+                        <option defaultValue="8">Tipo de identificación Comerciante</option>
+                        <option defaultValue="9">N. Ident. Usuario</option>
+                        <option defaultValue="10">N. Ident. Comerciante</option>
+                        <option defaultValue="11">Agente</option>
+                        <option defaultValue="12">Linea de Origen</option>
+                        <option defaultValue="13">Estado</option>
+                        <option defaultValue="14">Razon Social/Nombre Comerciante</option>
+                        <option defaultValue="15">Nombre Fantasía</option>
+                        <option defaultValue="16">Fecha de Creación</option>
+                        <option defaultValue="17">Fecha de Completado</option>
+                        <option defaultValue="18">Usuario Especial</option>
                     </select>
+                </div>
+                <div className="col-md-4">
+                    <label htmlFor="input_Top" className="form-label mx-2">
+                        Filtros Top
+                    </label>
+
+                    <select
+                        id="input_TID"
+                        className="form-select"
+                        name="tid"
+                        onChange={(e) => selectTop(e)}>
+                        <option value="0"
+                            selected="selected" disabled>
+                            Seleccione...
+                        </option>
+                        <option defaultValue="1">Top 10</option>
+                        <option defaultValue="2">Top 20</option>
+                        <option defaultValue="3">Top 30</option>
+                        <option defaultValue="4">Todos</option>
+                        <option defaultValue="5">Definir</option>
+                    </select>
+                </div>
+                <div className={deshabTxtTop}>
+                    <label className="form-label" htmlFor="txtTop">Top ?</label>
+                    <input className="form-control" type="text" value={txtTop} onChange={(e) => validarTxtTop(e.target.value)} id="txtTop" />
                 </div>
             </div>
             <div className="row mt-2">
@@ -619,54 +784,6 @@ function Stadistic() {
                         <option defaultValue="3">Circular</option>
                     </select>
                 </div>
-                <div className="col-md-4">
-                    <label htmlFor="input_TID" className="form-label">
-                        Tipo de identificación
-                    </label>
-                    <select
-                        id="input_TID"
-                        className="form-select"
-                        name="tid"
-                        required>
-                        <option value="0"
-                            selected="selected" disabled>
-                            Seleccione...
-                        </option>
-                        <option defaultValue="1">Cédula Nacional</option>
-                        <option defaultValue="2">Pasaporte</option>
-                        <option defaultValue="3">Cédula Jurídica</option>
-                        <option defaultValue="4">DIMEX</option>
-                    </select>
-                </div>
-                <div className="col-md-4">
-                    <label htmlFor="selectMateria" className="form-label">
-                        Materia
-                    </label>
-                    <select
-                        name="materia"
-                        id="selectMateria"
-                        className="form-select"
-                        onChange={(e) => getAsuntConsultado(e)}
-                        defaultValue={idMat}
-                        required>
-                        <option
-                            defaultValue="DEFAULT"
-                            value="0"
-                            selected="selected"
-                            disabled>
-                            Seleccione...
-                        </option>
-                        {materia?.map((materia) => (
-                            <option key={materia.id} value={materia.id_materia}>
-                                {" "}
-                                {materia.nomb_materia}{" "}
-                            </option>
-                        ))}
-                    </select>
-                    <div className="invalid-feedback">
-                        Por favor, selecione una materia.
-                    </div>
-                </div>
                 <div className="row">
                     <div>
                         <label htmlFor="inputCed" className="form-label mt-2">
@@ -677,7 +794,7 @@ function Stadistic() {
                             type="text"
                             className={`form-control`}
                             id="inputCed"
-                            defaultValue={title}
+                            value={title}
                             onChange={(e) => {
                                 setTitle(e.target.value);
                             }}
@@ -698,7 +815,10 @@ function Stadistic() {
                         </div>
                         <div className="col-md-4 mt-2 text-wrap">
                             <button className="btn btn-success me-1">Exportar datos a PDF</button>
-                            <button className="d-none btn btn-success">Exportar datos a CSV</button>
+                            <button className="d-none btn btn-success" onClick={() => contador()}>Exportar datos a CSV</button>
+                        </div>
+                        <div className="col-md-4 mt-2 text-wrap">
+                            <button className="btn btn-success" onClick={() => contador()}>Mostrar Grafico y tabla</button>
                         </div>
                     </div>
                 </div>
@@ -711,17 +831,17 @@ function Stadistic() {
                 <div className="row">
                     <div className="App">
                         <div className={deshaBar}>
-                            <div style={{ width: 500 }}>
+                            <div style={{ width: 800 }}>
                                 <BarChart chartData={userData} />
                             </div>
                         </div>
                         <div className={deshaLine}>
-                            <div style={{ width: 500 }}>
+                            <div style={{ width: 800 }}>
                                 <LineChart chartData={userData} />
                             </div>
                         </div>
                         <div className={deshaPie}>
-                            <div style={{ width: 500 }}>
+                            <div style={{ width: 800 }}>
                                 <PieChart chartData={userData} />
                             </div>
                         </div>
@@ -731,13 +851,33 @@ function Stadistic() {
             <br />
             <br />
             <br />
+            <div className={destabla}>
+                <table id="RepoSoliPres" className="table table-dark table-striped caption-top badge text-nowrap table-bordered border-primary overflow-auto">
+                    <caption>{title}</caption>
+                    <thead>                        
+                        <tr>
+                            <th scope="col">{dato1}</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {top?.map((dato) => (
+                            <tr key={dato.elemt}>
+                                <th scope="row">{dato.elemt}</th>
+                                <td>{dato.total}</td>
+                            </tr>
+                        )
+                        )}
+                    </tbody>
+                </table>
+            </div>
             <div>
                 <div>
                     <div>
-                        <div className="container-fluid position-absolute start-0 w-auto p-3 table-bordered">
+                        <div className="d-none container-fluid position-absolute start-0 w-auto p-3 table-bordered">
                             <button className="btn btn-danger" onClick={() => ResetTable()}>Restrablecer Tabla</button>
                             <table id="RepoSoliPres" className="table table-dark table-striped caption-top badge text-nowrap table-bordered border-primary overflow-auto">
-                                <caption>Reportes solicitud de asesoria presencial</caption>
+                                <caption>{title}</caption>
                                 <thead>
                                     <tr>
                                         <th scope="col"># Reporte</th>

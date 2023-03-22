@@ -1896,11 +1896,9 @@ const CompFormpres = () => {
               name="nombrec"
               type="text"
               className={`form-control ${nclValidC}`}
-              readOnly={onlyRnombC}
               id="inputNameC"
               value={nombC}
               onChange={(e) => ValidarinputNombC(e.target.value, "2")}
-              disabled={dehabilnombC}
               required
             />
             <div className="invalid-feedback">{fbNameC}</div>
@@ -1914,11 +1912,9 @@ const CompFormpres = () => {
               name="apell1c"
               type="text"
               className={`form-control ${paclValidC}`}
-              readOnly={onlyRapell1C}
               id="input1erApC"
               value={apell1C}
               onChange={(e) => ValidarinputApp1C(e.target.value)}
-              disabled={dehabilapell1C}
               required
             />
             <div className="invalid-feedback">{fbApell1C}</div>
@@ -1931,11 +1927,9 @@ const CompFormpres = () => {
               name="apell2c"
               type="text"
               className={`form-control ${saclValidC}`}
-              readOnly={onlyRapell2C}
               id="input2doApC"
               value={apell2C}
               onChange={(e) => ValidarinputApp2C(e.target.value)}
-              disabled={dehabilapell2C}
               required
             />
             <div className="invalid-feedback">
