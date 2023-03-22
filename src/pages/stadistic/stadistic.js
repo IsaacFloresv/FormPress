@@ -99,7 +99,7 @@ function Stadistic() {
         });
 
         let reqOptions = {
-            url: "http://127.0.0.1:4002/topelemt",
+            url: "https://fwmback-production.up.railway.app/topelemt",
             method: "PUT",
             headers: headersList,
             data: bodyContent,
@@ -755,7 +755,7 @@ function Stadistic() {
                         <option defaultValue="1">Top 10</option>
                         <option defaultValue="2">Top 20</option>
                         <option defaultValue="3">Top 30</option>
-                        <option defaultValue="4">Todos</option>
+                        <option className="d-none" defaultValue="4">Todos</option>
                         <option defaultValue="5">Definir</option>
                     </select>
                 </div>
