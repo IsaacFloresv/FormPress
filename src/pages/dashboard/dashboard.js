@@ -81,7 +81,7 @@ function Dashboard() {
 
   const bscStatus = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.status.toLowerCase().include(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.status.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)

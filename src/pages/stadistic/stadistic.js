@@ -240,9 +240,12 @@ function Stadistic() {
     }
 
     const validarTxtTop = (e) => {
-        const resp = /^[0-9]{9}$/.test(e);
-        console.log(e, resp)
+        let valor = e
+        setTxtTop(valor)
+        const resp = /^[0-9]{9}$/.test(valor)
+        console.log(resp)
         if (resp) {
+            console.log("paso resp")
             setDato1(e)
             setTxtTop(e)
         }

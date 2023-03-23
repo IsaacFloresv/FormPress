@@ -1006,6 +1006,7 @@ const CompFormpres = () => {
   const validarInputCedC = (val, ub) => {
     const valor = val;
     setndiC(valor);
+    console.log(val,ub, selectNidC)
     if (ub == 2) {
       if (selectNidC === 1) {
         const resp = /^[0-9]{9}$/.test(valor);
@@ -1036,6 +1037,7 @@ const CompFormpres = () => {
         const resp = /^[a-zA-Z0-9]{10}$/.test(val);
         if (resp && valor.toString().length === 10) {
           setidClValidC("is-valid");
+          console.log(resp, val, ub)
           cargarDatosC(val, ub);
         } else {
           setidClValidC("is-invalid");
@@ -1215,7 +1217,7 @@ const CompFormpres = () => {
     await fetch(URI + "comer/" + val)
       .then((resp) => resp.json())
       .then((data) => {
-        const Comer = data[ 0 ];
+        const Comer = data[0];
         setComer(Comer);
         console.log(Comer)
         if (ub == 1 && selectNidA == 3) {
@@ -1283,13 +1285,15 @@ const CompFormpres = () => {
             Comer?.fantasy_name != "NA" ||
             Comer?.fantasy_name != "N/A"
           ) {
+            console.log("Si hay NF y NC")
             const nombreE = Comer?.business_name;
             const nombreF = Comer?.fantasy_name;
-            setinvisibleAp1("d-block col-md-4");
+            setinvisibleAp1C("d-block col-md-4");
             setlblinputName("Nombre de Empresa o institucion");
             setlblapell1C("Nombre de Fantasía (Opcional)");
             setapell2C("NO INDICA");
-            setonlyRnombC(nombreE);
+            setnombC(nombreE);
+            ValidarinputNombC(nombreE, val);
             setapell1C(nombreF);
             setRsocial(nombC);
             setNfantasy(apell1C);
