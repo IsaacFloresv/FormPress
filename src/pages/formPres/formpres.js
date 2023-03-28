@@ -40,7 +40,7 @@ const CompFormpres = () => {
 
 
     if (v === 2) {
-      setidNR(data)
+      setidNR(data-1)
     }
 
     setnRegistro(may)
@@ -52,7 +52,7 @@ const CompFormpres = () => {
     var nagente = cookies.get('info')
     let headersList = {
       Accept: "*/*",
-      "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+      //"User-Agent": "Thunder Client (https://www.thunderclient.com)",
       "Content-Type": "application/json",
     };
 
@@ -92,18 +92,19 @@ const CompFormpres = () => {
       id_audio: idaudio,
       id_correo: idcorreo,
     });
-    console.log(bodyContent)
-    let response = await fetch(
-      "https://fwmback-production.up.railway.app/asepress",
-      {
-        method: "POST",
-        body: bodyContent,
-        headers: headersList,
-      }
-    );
 
-    let data = await response.text();
+    let reqOptions = {
+      url: "https://fwmback-production.up.railway.app/asepress",
+      method: "POST",
+      headers: headersList,
+      data: bodyContent,
+    }
+    
+    let response = await axios.request(reqOptions);
+
     alert("Registro Creado Correctamente....");
+    NextRegister(2)
+    //window.location.reload()
   };
 
   //Validacion de formulario antes de enviar correo
@@ -158,6 +159,7 @@ const CompFormpres = () => {
     getProvs()
     getMaterias()
     getBienes()
+    NextRegister(2)
   }, [])
 
   //
@@ -1241,7 +1243,7 @@ const CompFormpres = () => {
             const nombreF = Comer?.fantasy_name;
             setinvisibleAp1("d-block col-md-4");
             setlblinputName("Nombre de Empresa o institucion");
-            setlblapell1C("Nombre de Fantasía (Opcional)");
+            setlblapell1A("Nombre de Fantasía (Opcional)");
             setapell2A("NO INDICA");
             setnombA(nombreE);
             setapell1A(nombreF);
@@ -1269,6 +1271,7 @@ const CompFormpres = () => {
             Comer?.fantasy_name == "NA" ||
             Comer?.fantasy_name == "N/A"
           ) {
+            console.log("no hay NF")
             const nombreC = Comer?.business_name;
             setnombC(nombreC);
             ValidarinputNombC(nombreC, val);
@@ -1283,19 +1286,19 @@ const CompFormpres = () => {
             Comer?.fantasy_name != "NULL" ||
             Comer?.fantasy_name != null ||
             Comer?.fantasy_name != "NA" ||
-            Comer?.fantasy_name != "N/A"
+            Comer?.fantasy_name != "N/A" 
           ) {
             console.log("Si hay NF y NC")
             const nombreE = Comer?.business_name;
             const nombreF = Comer?.fantasy_name;
             setinvisibleAp1C("d-block col-md-4");
-            setlblinputName("Nombre de Empresa o institucion");
+            setlblinputNameC("Nombre de Empresa o institucion");
             setlblapell1C("Nombre de Fantasía (Opcional)");
             setapell2C("NO INDICA");
             setnombC(nombreE);
             ValidarinputNombC(nombreE, val);
             setapell1C(nombreF);
-            setRsocial(nombC);
+            setRsocial(nombreE);
             setNfantasy(apell1C);
           } else if (
             (Comer?.fantasy_name == "NULL" ||
@@ -1304,6 +1307,7 @@ const CompFormpres = () => {
               Comer?.fantasy_name == "N/A") &&
             Comer?.business_name == null
           ) {
+            console.log("no hay NF ni NC")
             const nombreE = Comer?.business_name;
             const nombreF = Comer?.fantasy_name;
             setinvisibleAp1C("d-block col-md-4");
@@ -1312,9 +1316,11 @@ const CompFormpres = () => {
             setapell2C("NO INDICA");
             setnombC(nombreE);
             setapell1C(nombreF);
-            setRsocial(nombC);
+            setRsocial(nombreE);
             setNfantasy(apell1C);
           }
+
+          console.log("nada")
         } else if (ub == 2 && selectNidC == 1) {
           cargarDatosP(val, ub);
         }
