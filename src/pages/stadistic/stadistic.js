@@ -20,7 +20,7 @@ var elme;
 var fchIni = "X";
 var fchFin = "X";
 var graFic = "";
-var top = 0
+var top = 0;
 
 function Stadistic() {
   const [materia, setMateria] = useState([]);
@@ -83,27 +83,19 @@ function Stadistic() {
   };
 
   const getReportes = async () => {
+    let bodyContent
     let headersList = {
       Accept: "*/*",
       //"User-Agent": "Thunder Client (https://www.thunderclient.com)",
       "Content-Type": "application/json",
     };
 
-    if (fchFin === 1 || fchIni === 1) {
-      let bodyContent = JSON.stringify({
-        elemt: `${elme}`,
-        top: dato2,
-        opc: 1
-      });
-    } else {
-      let bodyContent = JSON.stringify({
-        elemt: `${elme}`,
-        top: dato2,
+    bodyContent = JSON.stringify({        
         opc: 3,
         fchaFin: `${fchFin}`,
         fchaIni: `${fchIni}`,
       });
-    }
+
     let reqOptions = {
       url: "https://fwmback-production.up.railway.app/topelemt",
       method: "PUT",
@@ -112,26 +104,27 @@ function Stadistic() {
     };
     console.log(bodyContent);
     let res = await axios.request(reqOptions);
-    const report = res.data;
+    const report = res.data[0];
 
+    console.log(report)
     setReportes(report);
     setDReportes(report);
   };
 
   const contador = async () => {
     VerTabla();
-    let bodyContent
+    let bodyContent;
     let headersList = {
       Accept: "*/*",
       //"User-Agent": "Thunder Client (https://www.thunderclient.com)",
       "Content-Type": "application/json",
     };
-    console.log(fchFin, fchIni)
+    console.log(fchFin, fchIni);
     if (fchFin === "X" || fchIni === "X") {
       bodyContent = JSON.stringify({
         elemt: `${elme}`,
         top: dato2,
-        opc: 1
+        opc: 1,
       });
     } else {
       bodyContent = JSON.stringify({
@@ -173,6 +166,8 @@ function Stadistic() {
         },
       ],
     });
+
+    getReportes();
   };
 
   const selectTop = (e) => {
@@ -968,7 +963,7 @@ function Stadistic() {
               <ReactHTMLTableToExcel
                 id="test-table-xls-button"
                 className="btn btn-success"
-                table="RepoSoliPres, RepoTotal"
+                table="TabletTotal"
                 filename="Reporte General"
                 sheet="Solicitud Presencial de Asesorias"
                 buttonText="Exportar datos a Excel"
@@ -996,6 +991,7 @@ function Stadistic() {
       <br />
       <br />
       <br />
+      <table id="TabletTotal">
       <div className="container-fluid top-50">
         <div className="row">
           <div className="App">
@@ -1020,198 +1016,202 @@ function Stadistic() {
       <br />
       <br />
       <br />
-      <div className={destabla}>
-        <table
-          id="RepoSoliPres"
-          className="table table-dark table-striped caption-top badge text-nowrap table-bordered border-primary overflow-auto">
-          <caption>{title}</caption>
-          <thead>
-            <tr>
-              <th scope="col">{dato1}</th>
-              <th scope="col">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {top?.map((dato) => (
-              <tr key={dato.elemt}>
-                <th scope="row">{dato.elemt}</th>
-                <td>{dato.total}</td>
+      
+        <div className={destabla}>
+          <table
+            id="RepoSoliPres"
+            className="table table-dark table-striped caption-top badge text-nowrap table-bordered border-primary overflow-auto">
+            <caption>{title}</caption>
+            <thead>
+              <tr>
+                <th scope="col">{dato1}</th>
+                <th scope="col">Total</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <br/>
-      <br/>
-      <br/>
-      <div>
+            </thead>
+            <tbody>
+              {top?.map((dato) => (
+                <tr key={dato.elemt}>
+                  <th scope="row">{dato.elemt}</th>
+                  <td>{dato.total}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <br />
+        <br />
+        <br />
         <div>
           <div>
-            <div className="d-none container-fluid table-bordered">
-              <button className="d-none btn btn-danger" onClick={() => ResetTable()}>
-                Restrablecer Tabla
-              </button>
-              <table
-                id="RepoTotal"
-                className="table table-dark table-striped badge text-nowrap table-bordered border-primary overflow-auto">
-                <caption>{title}</caption>
-                <thead>
-                  <tr>
-                    <th scope="col"># Reporte</th>
-                    <th scope="col">Agente</th>
-                    <th scope="col">Creado</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Origen</th>
-                    <th scope="col">Usuario Esp.</th>
-                    <th scope="col">Observasión</th>
-                    <th scope="col">Tipo Ident.</th>
-                    <th scope="col">N. Ident.</th>
-                    <th scope="col">Nombre Cliente</th>
-                    <th scope="col">1er Apell Cliente</th>
-                    <th scope="col">2do Apell Cliente</th>
-                    <th scope="col">Correo 1</th>
-                    <th scope="col">Correo 2</th>
-                    <th scope="col">Telefono 1</th>
-                    <th scope="col">Telefono 2</th>
-                    <th scope="col">Provincia</th>
-                    <th scope="col">Canton</th>
-                    <th scope="col">Distrito</th>
-                    <th scope="col">Materia</th>
-                    <th scope="col">Asunto Consult.</th>
-                    <th scope="col">Bien</th>
-                    <th scope="col">Tipo Ident. Comerciante</th>
-                    <th scope="col">N. Ident. Comerciante</th>
-                    <th scope="col">Razon Social/Nombre Comerciante</th>
-                    <th scope="col">Nombre Fantasía</th>
-                    <th scope="col">Descripción del caso</th>
-                    <th scope="col">Respuesta Enviada</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="d-none">
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscNReport(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscAgent(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscFchCreado(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscStatus(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscOrigenr(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscUsuarios(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscUsObser(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscTdia(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscNdia(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscNombA(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscApell1A(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscApell2A(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscEmail1(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscEmail2(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscTel1(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscTel2(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscProv(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscCanto(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscDistr(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscMateria(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscAsuntot(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscBien(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscTdiC(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscNdiCt(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscRSocial(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscNFantacy(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscDesch(e)} />
-                    </td>
-                    <td>
-                      <input id="buscar" onKeyUp={(e) => bscRespe(e)} />
-                    </td>
-                  </tr>
-                  {reportes.map((reportes) => (
-                    <tr key={reportes.id}>
-                      <th scope="row">{reportes.id_report}</th>
-                      <td>{reportes.id_agente}</td>
-                      <td>{reportes.fchareg}</td>
-                      <td>{reportes.status}</td>
-                      <td>{reportes.origen_r}</td>
-                      <td>{reportes.usuario_s}</td>
-                      <td>{reportes.us_obser}</td>
-                      <td>{reportes.tdia}</td>
-                      <td>{reportes.ndia}</td>
-                      <td>{reportes.nomba}</td>
-                      <td>{reportes.apell1a}</td>
-                      <td>{reportes.apell2a}</td>
-                      <td>{reportes.email}</td>
-                      <td>{reportes.email2}</td>
-                      <td>{reportes.tel}</td>
-                      <td>{reportes.tel2}</td>
-                      <td>{reportes.provi}</td>
-                      <td>{reportes.canto}</td>
-                      <td>{reportes.distr}</td>
-                      <td>{reportes.materia}</td>
-                      <td>{reportes.asunto}</td>
-                      <td>{reportes.bien}</td>
-                      <td>{reportes.tdic}</td>
-                      <td>{reportes.ndic}</td>
-                      <td>{reportes.razon_social}</td>
-                      <td>{reportes.nombre_fantasia}</td>
-                      <td>{reportes.desch}</td>
-                      <td>{reportes.respe}</td>
+            <div>
+              <div className="d-none container-fluid table-bordered">
+                <button
+                  className="d-none btn btn-danger"
+                  onClick={() => ResetTable()}>
+                  Restrablecer Tabla
+                </button>
+                <table
+                  id="RepoTotal"
+                  className="table table-dark table-striped badge text-nowrap table-bordered border-primary overflow-auto">
+                  <caption>{title}</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col"># Reporte</th>
+                      <th scope="col">Agente</th>
+                      <th scope="col">Creado</th>
+                      <th scope="col">Estado</th>
+                      <th scope="col">Origen</th>
+                      <th scope="col">Usuario Esp.</th>
+                      <th scope="col">Observasión</th>
+                      <th scope="col">Tipo Ident.</th>
+                      <th scope="col">N. Ident.</th>
+                      <th scope="col">Nombre Cliente</th>
+                      <th scope="col">1er Apell Cliente</th>
+                      <th scope="col">2do Apell Cliente</th>
+                      <th scope="col">Correo 1</th>
+                      <th scope="col">Correo 2</th>
+                      <th scope="col">Telefono 1</th>
+                      <th scope="col">Telefono 2</th>
+                      <th scope="col">Provincia</th>
+                      <th scope="col">Canton</th>
+                      <th scope="col">Distrito</th>
+                      <th scope="col">Materia</th>
+                      <th scope="col">Asunto Consult.</th>
+                      <th scope="col">Bien</th>
+                      <th scope="col">Tipo Ident. Comerciante</th>
+                      <th scope="col">N. Ident. Comerciante</th>
+                      <th scope="col">Razon Social/Nombre Comerciante</th>
+                      <th scope="col">Nombre Fantasía</th>
+                      <th scope="col">Descripción del caso</th>
+                      <th scope="col">Respuesta Enviada</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    <tr className="d-none">
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscNReport(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscAgent(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscFchCreado(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscStatus(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscOrigenr(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscUsuarios(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscUsObser(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscTdia(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscNdia(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscNombA(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscApell1A(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscApell2A(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscEmail1(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscEmail2(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscTel1(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscTel2(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscProv(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscCanto(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscDistr(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscMateria(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscAsuntot(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscBien(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscTdiC(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscNdiCt(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscRSocial(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscNFantacy(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscDesch(e)} />
+                      </td>
+                      <td>
+                        <input id="buscar" onKeyUp={(e) => bscRespe(e)} />
+                      </td>
+                    </tr>
+                    {reportes.map((reportes) => (
+                      <tr key={reportes.id}>
+                        <th scope="row">{reportes.id_report}</th>
+                        <td>{reportes.id_agente}</td>
+                        <td>{reportes.fchareg}</td>
+                        <td>{reportes.status}</td>
+                        <td>{reportes.origen_r}</td>
+                        <td>{reportes.usuario_s}</td>
+                        <td>{reportes.us_obser}</td>
+                        <td>{reportes.tdia}</td>
+                        <td>{reportes.ndia}</td>
+                        <td>{reportes.nomba}</td>
+                        <td>{reportes.apell1a}</td>
+                        <td>{reportes.apell2a}</td>
+                        <td>{reportes.email}</td>
+                        <td>{reportes.email2}</td>
+                        <td>{reportes.tel}</td>
+                        <td>{reportes.tel2}</td>
+                        <td>{reportes.provi}</td>
+                        <td>{reportes.canto}</td>
+                        <td>{reportes.distr}</td>
+                        <td>{reportes.materia}</td>
+                        <td>{reportes.asunto}</td>
+                        <td>{reportes.bien}</td>
+                        <td>{reportes.tdic}</td>
+                        <td>{reportes.ndic}</td>
+                        <td>{reportes.razon_social}</td>
+                        <td>{reportes.nombre_fantasia}</td>
+                        <td>{reportes.desch}</td>
+                        <td>{reportes.respe}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </table>
     </>
   );
 }

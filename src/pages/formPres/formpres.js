@@ -40,7 +40,7 @@ const CompFormpres = () => {
     const may = nReporte
 
     console.log(data)
-    setidNR(--data)
+    setidNR(data)
 
     setnRegistro(may)
     /*let may = await response.text();
