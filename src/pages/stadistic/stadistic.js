@@ -836,7 +836,7 @@ function Stadistic() {
             className="form-control"
             id="fcini"
             type="date"
-            value={fini}
+            value={fend}
             onChange={(e) => MenorFcha(e.target.value)}
           />
         </div>
@@ -848,7 +848,7 @@ function Stadistic() {
             className="form-control"
             id="fcfin"
             type="date"
-            value={fend}
+            value={fini}
             onChange={(e) => MayorFcha(e.target.value)}
           />
         </div>
