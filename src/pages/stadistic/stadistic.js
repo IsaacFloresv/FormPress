@@ -837,7 +837,7 @@ function Stadistic() {
             id="fcini"
             type="date"
             value={fini}
-            onChange={(e) => MayorFcha(e.target.value)}
+            onChange={(e) => MenorFcha(e.target.value)}
           />
         </div>
         <div className="col-md-4">
@@ -849,7 +849,7 @@ function Stadistic() {
             id="fcfin"
             type="date"
             value={fend}
-            onChange={(e) => MenorFcha(e.target.value)}
+            onChange={(e) => MayorFcha(e.target.value)}
           />
         </div>
       </div>
