@@ -22,7 +22,7 @@ const CompFormpres = () => {
   }
 
   //Obtener el numero del ultimo
-  const NextRegister = async (v) => {
+  const NextRegister = async () => {
     let headersList = {
       "Accept": "*/*",
       "User-Agent": "Thunder Client (https://www.thunderclient.com)"
@@ -136,6 +136,7 @@ const CompFormpres = () => {
   //Validacion de formulario antes de enviar correo
   const validarbtnSubmit = (e) => {
     e.preventDefault();
+    NextRegister()
     const NR = 1;
     if (NR != null) {
       if (
@@ -184,7 +185,7 @@ const CompFormpres = () => {
     getProvs()
     getMaterias()
     getBienes()
-    NextRegister(1)
+    NextRegister()
   }, [])
 
   //
