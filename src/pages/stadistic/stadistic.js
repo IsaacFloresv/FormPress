@@ -809,7 +809,7 @@ function Stadistic() {
                     type="button"
                     className="nav-link"
                     aria-current="page">
-                    Reportes Solicitud asesoria Presencial
+                    Formulario Solicitud de asesoria
                   </a>
                 </li>
                 <li className="nav-item">
