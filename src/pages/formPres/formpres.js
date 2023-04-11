@@ -119,7 +119,7 @@ const CompFormpres = () => {
       }
 
       let response = await axios.request(reqOptions);
-      if (response.data.status === 400) {
+      if (response.data.status === 400 || response.data.message === 'Validation error') {
         nReporte = ++nReporte
         console.log(nReporte)  
         console.log("no se guardo el dato.")
