@@ -5,6 +5,7 @@ import Cookies from 'universal-cookie'
 import { Link } from "react-router-dom";
 
 const cookies = new Cookies()
+var nReporte
 
 const URI = "https://fwmback-production.up.railway.app/";
 //const URIEMAIL = "https://sndmail-production-cdb6.up.railway.app/sendemail";
@@ -35,20 +36,31 @@ const CompFormpres = () => {
 
     setAgente(cookies.get('info'))
     let data = await response.text();
-    const rmay = ++data
-    const may = rmay
+    nReporte = data
+    const may = nReporte
 
-
-    if (v === 2) {
-      setidNR(data-1)
-    }
+    console.log(data)
+    setidNR(--data)
 
     setnRegistro(may)
-    console.log(data, may)
+    /*let may = await response.text();
+    let rmay = (may++)
+    nreport = rmay
+
+    //setidNR(data)
+    
+    console.log(nreport, data)*/
+
+    //setnRegistro(may)
   };
 
-  const EnviarDatos = async () => {
-    alert("Se procede a guardar los datos");
+  const EnviarDatos = async (v) => {
+    if (v === 1) {
+      console.log("EnviarDatos se llama de forma reciproca")          
+    }else{
+      alert("Se procede a guardar los datos");
+    }
+    
     var nagente = cookies.get('info')
     let headersList = {
       Accept: "*/*",
@@ -56,60 +68,73 @@ const CompFormpres = () => {
       "Content-Type": "application/json",
     };
 
-    let bodyContent = JSON.stringify({
-      id_report: nRegistro,
-      fchareg: fchareg,
-      id_agente: nagente,
-      fchacomplet: fchacomplet,
-      status: eRegistro,
-      origen_r: oRegistro,
-      tel_origen: toRegistro,
-      usuario_s: userspe,
-      us_obser: usobser,
-      tdia: tdiA,
-      ndia: ndiA,
-      nomba: nombA,
-      apell1a: apell1A,
-      apell2a: apell2A,
-      email: email,
-      email2: email2,
-      tel: tel,
-      tel2: tel2,
-      provi: provi,
-      canto: canto,
-      distr: distr,
-      materia: ubMat,
-      asunto: ubAsu,
-      bien: ubBie,
-      razon_social: rsocial,
-      nombre_fantasia: nfantasy,
-      tdic: tdiC,
-      ndic: ndiC,
-      fchahech: fchaHech,
-      fchagar: fchaGar,
-      desch: descH,
-      respe: resp,
-      id_audio: idaudio,
-      id_correo: idcorreo,
-    });
+    if (!nReporte) {
+      console.log("nReporte esta null")
+      console.log(nReporte)
+      NextRegister()      
+    } else {
+      let bodyContent = JSON.stringify({
+        id_report: nReporte,
+        fchareg: fchareg,
+        id_agente: nagente,
+        fchacomplet: fchacomplet,
+        status: eRegistro,
+        origen_r: oRegistro,
+        tel_origen: toRegistro,
+        usuario_s: userspe,
+        us_obser: usobser,
+        tdia: tdiA,
+        ndia: ndiA,
+        nomba: nombA,
+        apell1a: apell1A,
+        apell2a: apell2A,
+        email: email,
+        email2: email2,
+        tel: tel,
+        tel2: tel2,
+        provi: provi,
+        canto: canto,
+        distr: distr,
+        materia: ubMat,
+        asunto: ubAsu,
+        bien: ubBie,
+        razon_social: rsocial,
+        nombre_fantasia: nfantasy,
+        tdic: tdiC,
+        ndic: ndiC,
+        fchahech: fchaHech,
+        fchagar: fchaGar,
+        desch: descH,
+        respe: resp,
+        id_audio: idaudio,
+        id_correo: idcorreo,
+      });
 
-    let reqOptions = {
-      url: "https://fwmback-production.up.railway.app/asepress",
-      method: "POST",
-      headers: headersList,
-      data: bodyContent,
+      console.log(bodyContent)
+      let reqOptions = {
+        url: "https://fwmback-production.up.railway.app/asepress",
+        method: "POST",
+        headers: headersList,
+        data: bodyContent,
+      }
+
+      let response = await axios.request(reqOptions);
+      if (response.data.message === 'Validation error') {
+        nReporte = ++nReporte
+        console.log(nReporte)  
+        console.log("no se guardo el dato.")
+        EnviarDatos(1)
+      } else {
+        console.log(response)
+        alert("Registro Creado Correctamente....");
+        NextRegister()
+        //window.location.reload()
+      }
     }
-    
-    let response = await axios.request(reqOptions);
-
-    alert("Registro Creado Correctamente....");
-    NextRegister(2)
-    //window.location.reload()
   };
 
   //Validacion de formulario antes de enviar correo
   const validarbtnSubmit = (e) => {
-    NextRegister(2)
     e.preventDefault();
     const NR = 1;
     if (NR != null) {
@@ -159,7 +184,7 @@ const CompFormpres = () => {
     getProvs()
     getMaterias()
     getBienes()
-    NextRegister(2)
+    NextRegister(1)
   }, [])
 
   //
@@ -424,7 +449,6 @@ const CompFormpres = () => {
   };
 
   const input_TIDchange = (val, tID) => {
-    NextRegister(1)
     setselectNidA(val);
     const valor = val;
     settdiA(tID);
@@ -1008,7 +1032,7 @@ const CompFormpres = () => {
   const validarInputCedC = (val, ub) => {
     const valor = val;
     setndiC(valor);
-    console.log(val,ub, selectNidC)
+    console.log(val, ub, selectNidC)
     if (ub == 2) {
       if (selectNidC === 1) {
         const resp = /^[0-9]{9}$/.test(valor);
@@ -1167,7 +1191,7 @@ const CompFormpres = () => {
   };
 
   //Mostrar los distritos por canton
-  const getBienes = async (v) => {  
+  const getBienes = async (v) => {
     const res = await axios.get(URI + "bie/");
     setBien(res.data);
     setdeshabBien(false);
@@ -1185,7 +1209,6 @@ const CompFormpres = () => {
 
   //Solicitud a DB
   const cargarDatosP = async (val, ub) => {
-    NextRegister(1)
     const Ub = ub;
     await fetch(URI + "pers/" + val)
       .then((resp) => resp.json())
@@ -1219,7 +1242,7 @@ const CompFormpres = () => {
     await fetch(URI + "comer/" + val)
       .then((resp) => resp.json())
       .then((data) => {
-        const Comer = data[0];
+        const Comer = data[ 0 ];
         setComer(Comer);
         console.log(Comer)
         if (ub == 1 && selectNidA == 3) {
@@ -1286,7 +1309,7 @@ const CompFormpres = () => {
             Comer?.fantasy_name != "NULL" ||
             Comer?.fantasy_name != null ||
             Comer?.fantasy_name != "NA" ||
-            Comer?.fantasy_name != "N/A" 
+            Comer?.fantasy_name != "N/A"
           ) {
             console.log("Si hay NF y NC")
             const nombreE = Comer?.business_name;
