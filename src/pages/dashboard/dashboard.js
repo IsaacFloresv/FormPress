@@ -54,8 +54,8 @@ function Dashboard() {
   }
 
   const bscAgent = (e) => {
-    if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.id_agente.toLowerCase().includes(e.target.value.toLowerCase()))
+    if (e) {
+      const filt = dreportes.filter((reporte) => reporte.id_agente?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -133,7 +133,7 @@ function Dashboard() {
 
   const bscTdia = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.tdia.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.tdia?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -159,7 +159,7 @@ function Dashboard() {
 
   const bscNombA = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.nomba.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.nomba?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -172,7 +172,7 @@ function Dashboard() {
 
   const bscApell1A = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.apell1a.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.apell1a?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -185,7 +185,7 @@ function Dashboard() {
 
   const bscApell2A = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.apell2a.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.apell2a?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -198,7 +198,7 @@ function Dashboard() {
 
   const bscEmail1 = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.email.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.email?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -211,7 +211,7 @@ function Dashboard() {
 
   const bscEmail2 = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.email2.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.email2?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -224,7 +224,7 @@ function Dashboard() {
 
   const bscTel1= (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.tel.includes(e.target.value))
+      const filt = dreportes.filter((reporte) => reporte.tel?.includes(e.target.value))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -237,7 +237,7 @@ function Dashboard() {
 
   const bscTel2 = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.tel2.includes(e.target.value))
+      const filt = dreportes.filter((reporte) => reporte.tel2?.includes(e.target.value))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -250,7 +250,7 @@ function Dashboard() {
 
   const bscProv = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.provi.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.provi?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -263,7 +263,7 @@ function Dashboard() {
 
   const bscCanto = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.canto.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.canto?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -276,7 +276,7 @@ function Dashboard() {
 
   const bscDistr = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.distr.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.distr?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -289,7 +289,7 @@ function Dashboard() {
 
   const bscMateria = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.materia.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.materia?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -302,7 +302,7 @@ function Dashboard() {
 
   const bscAsuntot = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.asunto.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.asunto?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -315,7 +315,7 @@ function Dashboard() {
 
   const bscBien = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.bien.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.bien?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -328,7 +328,7 @@ function Dashboard() {
 
   const bscTdiC = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.tdic.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.tdic?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -354,7 +354,7 @@ function Dashboard() {
 
   const bscRSocial = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.razon_social.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.razon_social?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -367,7 +367,7 @@ function Dashboard() {
 
   const bscNFantacy = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.nombre_fantasia.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.nombre_fantasia?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -380,7 +380,7 @@ function Dashboard() {
 
   const bscDesch = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.desch.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.desch?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -393,7 +393,7 @@ function Dashboard() {
 
   const bscRespe = (e) => {
     if (e !== '') {
-      const filt = dreportes.filter((reporte) => reporte.respe.toLowerCase().includes(e.target.value.toLowerCase()))
+      const filt = dreportes.filter((reporte) => reporte.respe?.toLowerCase().includes(e.target.value.toLowerCase()))
       console.log(filt)
       if (filt !== null) {
         setReportes(filt)
@@ -493,9 +493,6 @@ function Dashboard() {
         </div>
       </div>
       <br />
-      <br />
-      <br />
-      <br />
       <div className="container-fluid position-absolute start-0 w-auto p-3 table-bordered">
         <div className="d-flex flex-row mb-1 ms-2">
           <ReactHTMLTableToExcel
@@ -509,7 +506,7 @@ function Dashboard() {
           <button className="d-none btn btn-success me-1">Exportar datos a PDF</button>
           <button className="d-none btn btn-success">Exportar datos a CSV</button>
         </div>
-        <table id="RepoSoliPres" className="table table-dark table-striped caption-top badge text-nowrap table-bordered border-primary overflow-auto">
+        <table id="RepoSoliPres" className="table table-dark table-striped caption-top badge text-nowrap table-bordered border-primary">
           <caption>Reportes solicitud de asesoria presencial</caption>
           <thead>
             <tr>
