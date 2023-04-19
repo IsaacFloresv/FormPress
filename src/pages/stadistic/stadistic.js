@@ -90,11 +90,20 @@ function Stadistic() {
       "Content-Type": "application/json",
     };
 
-    bodyContent = JSON.stringify({        
+    if (fchFin === "X" || fchIni === "X") {
+      bodyContent = JSON.stringify({
+        elemt: `${elme}`,
+        top: dato2,
+        opc: 1,
+      });
+    } else {
+      bodyContent = JSON.stringify({        
         opc: 3,
         fchaFin: `${fchFin}`,
         fchaIni: `${fchIni}`,
       });
+    }
+    
 
     let reqOptions = {
       url: "https://fwmback-production.up.railway.app/topelemt",
