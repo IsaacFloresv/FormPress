@@ -504,7 +504,7 @@ function Dashboard() {
             buttonText="Exportar datos a Excel"
           />
           <button className="d-none btn btn-success me-1">Exportar datos a PDF</button>
-          <button className="d-none btn btn-success">Exportar datos a CSV</button>
+          <button className="d-none btn btn-success">Exportar datos a CSV </button>
         </div>
         <table id="RepoSoliPres" className="table table-dark table-striped caption-top badge text-nowrap table-bordered border-primary">
           <caption>Reportes solicitud de asesoria presencial</caption>
