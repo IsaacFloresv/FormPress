@@ -360,7 +360,7 @@ function Stadistic() {
   const VerTabla = () => {
     console.log(dato1);
     setDesTabla(
-      "container-fluid position-absolute start-0 w-auto p-3 table-bordered"
+      "container-fluid position-absolute start-35 table-bordered text-center"
     );
   };
 
@@ -1020,7 +1020,7 @@ function Stadistic() {
         <div className={destabla}>
           <table
             id="RepoSoliPres"
-            className="table table-dark table-striped caption-top badge text-nowrap table-bordered border-primary overflow-auto">
+            className="table table-dark fs-4 table-striped caption-top badge text-nowrap table-bordered border-primary overflow-auto">
             <caption>{title}</caption>
             <thead>
               <tr>
