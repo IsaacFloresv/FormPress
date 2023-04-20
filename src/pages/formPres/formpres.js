@@ -267,7 +267,9 @@ const CompFormpres = () => {
   //useState para modificar inputs
   const [ dehabil, setdehabil ] = useState(false);
   const [ dehabil2, setdehabil2 ] = useState(false);
+  const [ dehabiltel1, setdehabiltel1 ] = useState(false);
   const [ dehabiltel2, setdehabiltel2 ] = useState(true);
+  const [ dehabilem1, setdehabilem1 ] = useState(false);
   const [ dehabilem2, setdehabilem2 ] = useState(true);
   const [ deshabProv, setdeshabProv ] = useState(false);
   const [ deshabCant, setdeshabCant ] = useState(true);
@@ -283,6 +285,8 @@ const CompFormpres = () => {
   const [ deshabBien, setdeshabBien ] = useState(true);
   const [ checktel2, setCheckTel2 ] = useState(true);
   const [ checkem2, setCheckEm2 ] = useState(true);
+  const [ checktel1, setCheckTel1 ] = useState(false);
+  const [ checkem1, setCheckEm1 ] = useState(false);
 
 
   //useState para guardar datos de ubicacion
@@ -340,7 +344,8 @@ const CompFormpres = () => {
   const [ saclValidC, setsaClValidC ] = useState("");
   const [ emclValid, setemClValid ] = useState("");
   const [ emclValid2, setemClValid2 ] = useState("");
-  const [ tlclValid, settlClValid ] = useState("");
+  const [ tlclValid, settlClValid ] = useState("");  
+  const [ tlclValid1, settlClValid1 ] = useState("");
   const [ tlclValid2, settlClValid2 ] = useState("");
   const [ idclValidC, setidClValidC ] = useState("");
   const [ fhHValidC, setfhHValidC ] = useState("");
@@ -566,7 +571,7 @@ const CompFormpres = () => {
         break;
 
       case 5:
-        setlblinputNameC("Nombre de Fantasía (Opcional)");
+        setlblinputNameC("Nombre de Fantasía (Opcional) Nota: si no se da el dato digitar 'No indica'.");
         setlblapell1C("");
         setfbNameC("");
         setfbapell1C("");
@@ -613,6 +618,30 @@ const CompFormpres = () => {
         setdehabiltel2(false);
         settlClValid2("");
         setCheckTel2(false)
+      }
+    }else if (ub === 3) {
+      if (val?.target.checked) {
+        setEmail("No indica");
+        setdehabilem1(true);
+        setemClValid("");
+        setCheckEm1(true)
+      } else {
+        setEmail("");
+        setdehabilem1(false);
+        setemClValid("");
+        setCheckEm1(false)
+      }
+    } else if (ub === 4) {
+      if (val?.target.checked) {
+        setTel("0000-0000");
+        setdehabiltel1(true);
+        settlClValid1("");
+        setCheckTel1(true)
+      } else {
+        setTel("");
+        setdehabiltel1(false);
+        settlClValid1("");
+        setCheckTel1(false)
       }
     }
   };
@@ -890,7 +919,7 @@ const CompFormpres = () => {
       } else {
         setnClValidC("is-invalid");
       }
-    } else if (lblinputNameC == "Nombre de Fantasía (Opcional)" && tdiC === 'NO INDICA') {
+    } else if (lblinputNameC == "Nombre de Fantasía (Opcional) Nota: si no se da el dato digitar 'No indica'." && tdiC === 'NO INDICA') {
       const valor = val;
       setnombC(valor);
       setRsocial(valor)
@@ -908,6 +937,7 @@ const CompFormpres = () => {
   };
 
   const ValidarinputApp1C = (val) => {
+    console.log(val)
     const valor = val;
     setapell1C(valor);
     setNfantasy(valor);
@@ -926,6 +956,7 @@ const CompFormpres = () => {
   };
 
   const ValidarinputApp2C = (val) => {
+    console.log(val)
     const valor = val;
     setapell2C(valor);
     if (val.toString().length >= 1) {
@@ -1602,8 +1633,19 @@ const CompFormpres = () => {
         </div>
         <div className="row my-3 ms-1">
           <div className="col-md-3">
-            <label htmlFor="inputEmail" className="form-label">
+            <label htmlFor="inputEmail" className="form-label me-3">
               Correo electronico
+            </label> 
+            <input
+              className="form-check-input me-2"
+              type="checkbox"
+              id="naemail1"
+              checked={checkem1}
+              disabled={dehabil}
+              onChange={(e) => changeTeloEmail(e, 3)}
+            />
+            <label className="form-check-label fs-6" htmlFor="naemail2">
+              N/I
             </label>
             <input
               name="email"
@@ -1612,13 +1654,14 @@ const CompFormpres = () => {
               id="inputEmail"
               defaultValue={email}
               required
-              disabled={dehabil}
+              disabled={dehabilem1}
               onChange={(e) => validarInputEmail(e.target.value, 1)}
             />
             <div className="invalid-feedback">
               Por favor, ingrese un correo electronico valido.
             </div>
             <span id="erroremail2" className="fs-6"></span>
+           
           </div>
           <div className="col-md-3">
             <label htmlFor="inputEmail2" className="form-label me-3">
@@ -1633,7 +1676,7 @@ const CompFormpres = () => {
               onChange={(e) => changeTeloEmail(e, 1)}
             />
             <label className="form-check-label fs-6" htmlFor="naemail2">
-              N/A
+              N/I
             </label>
             <input
               name="email2"
@@ -1647,8 +1690,19 @@ const CompFormpres = () => {
             />
           </div>
           <div className="col-md-3">
-            <label htmlFor="inputTel" className="form-label">
+            <label htmlFor="inputTel" className="form-label me-3">
               Telefono (1234 - 5678)
+            </label>
+            <input
+              className="form-check-input me-2"
+              type="checkbox"
+              id="flexCheckDefault"
+              checked={checktel1}
+              disabled={dehabil}
+              onChange={(e) => changeTeloEmail(e, 4)}
+            />
+            <label className="form-check-label fs-6" htmlFor="flexCheckDefault">
+              N/I
             </label>
             <input
               name="tel"
@@ -1657,9 +1711,10 @@ const CompFormpres = () => {
               id="inputTel"
               value={tel}
               required
-              disabled={dehabil}
+              disabled={dehabiltel1}
               onChange={(e) => ValidarinputTel(e.target.value, 1)}
             />
+            
           </div>
           <div className="col-md-3">
             <label htmlFor="inputTel2" className="form-label me-3">
@@ -1674,7 +1729,7 @@ const CompFormpres = () => {
               onChange={(e) => changeTeloEmail(e, 2)}
             />
             <label className="form-check-label fs-6" htmlFor="flexCheckDefault">
-              N/A
+              N/I
             </label>
             <input
               name="tel2"

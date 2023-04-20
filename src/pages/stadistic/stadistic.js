@@ -39,10 +39,10 @@ function Stadistic() {
   const [idBie, setidBie] = useState();
   const [agente, setAgente] = useState(cookies.get("info"));
   const [reportes, setReportes] = useState([]);
-  /*useEffect(() => {
-        getReportes()
+  useEffect(() => {
+        getTotalReportes()
         //getMaterias()
-    }, [])*/
+    }, [])
 
   const [fini, setFini] = useState();
   const [top, setTop] = useState();
@@ -63,6 +63,12 @@ function Stadistic() {
     }
   };
 
+  const exportarCompleto = () => {
+    if (fchFin === "X" || fchIni === "X") {
+    const respuesta = confirm("Se exportara la totalidad de los registros de la base de datos, esto es un archivo pesado por lo que tomara un poco mas de tiempo. ¿Desea Continuar?");
+    }
+  }
+
   Array.prototype.unicos = function () {
     const unicos = [];
     this.forEach((elemento) => {
@@ -81,6 +87,14 @@ function Stadistic() {
       setDato3(1);
     }
   };
+
+  const getTotalReportes = async () => {
+    const res = await axios.get(URI)
+    const report = res.data
+    
+    setReportes(report)
+    setDReportes(report)
+  }
 
   const getReportes = async () => {
     let bodyContent
@@ -968,14 +982,14 @@ function Stadistic() {
           </div>
           <div className="row mt-2">
             <p>Opciones para Exportar</p>
-            <div className="col-md-4 mt-2 text-wrap">
+            <div className="col-md-4 mt-2 text-wrap" onClick={(e) => exportarCompleto()}>
               <ReactHTMLTableToExcel
                 id="test-table-xls-button"
                 className="btn btn-success"
                 table="TabletTotal"
                 filename="Reporte General"
                 sheet="Solicitud Presencial de Asesorias"
-                buttonText="Exportar datos a Excel"
+                buttonText="Exportar datos a Excel"                
               />
             </div>
             <div className="d-none col-md-4 mt-2 text-wrap">
