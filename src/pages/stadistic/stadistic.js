@@ -994,12 +994,12 @@ function Stadistic() {
             </div>
             <div className="d-none col-md-4 mt-2 text-wrap">
               <button className="btn btn-success me-1">
-                Exportar datos a PDF
+                Exportar a PDF
               </button>
               <button
                 className="d-none btn btn-success"
                 onClick={() => contador()}>
-                Exportar datos a CSV
+                Exportar a CSV
               </button>
             </div>
             <div className="col-md-4 mt-2 text-wrap">
