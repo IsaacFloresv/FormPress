@@ -1017,19 +1017,19 @@ function Stadistic() {
       <table id="TabletTotal">
       <div className="container-fluid top-50">
         <div className="row">
-          <div className="App">
+          <div className="App fs-5">
             <div id="Bar" className={deshaBar}>
-              <div style={{ width: 900 }}>
+              <div style={{ width: 1000}}>
                 <BarChart chartData={userData} />
               </div>
             </div>
             <div id="Line" className={deshaLine}>
-              <div style={{ width: 900 }}>
+              <div style={{ width: 1000 }}>
                 <LineChart chartData={userData} />
               </div>
             </div>
             <div id="Pie" className={deshaPie}>
-              <div style={{ width: 900 }}>
+              <div style={{ width: 1000 }}>
                 <PieChart chartData={userData} />
               </div>
             </div>
@@ -1043,7 +1043,7 @@ function Stadistic() {
         <div className={destabla}>
           <table
             id="RepoSoliPres"
-            className="table table-dark fs-4 table-striped caption-top badge text-nowrap table-bordered border-primary overflow-auto">
+            className="table table-dark fs-5 table-striped caption-top badge text-nowrap table-bordered border-primary overflow-auto">
             <caption>{title}</caption>
             <thead>
               <tr>

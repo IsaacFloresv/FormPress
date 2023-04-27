@@ -55,6 +55,8 @@ const CompFormpres = () => {
   };
 
   const EnviarDatos = async (v) => {
+    const fecha = new Date().toLocaleString();
+    setFchareg(fecha)
     if (v === 1) {
       console.log("EnviarDatos se llama de forma reciproca")          
     }else{
