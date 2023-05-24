@@ -20,7 +20,7 @@
     "jsonwebtoken": "^9.0.0",
     "md5": "^2.3.0",
     "moment": "^2.29.4",
-    "node": "^19.6.1",
+    "node": "^18.16.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-chartjs-2": "^5.2.0",
